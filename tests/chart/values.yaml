@@ -1,0 +1,82 @@
+# Default values for mapserver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ''
+fullnameOverride: ''
+
+imagePullSecrets: []
+replicaCount: 1
+
+# Direct env value:
+# <env>:
+#   type: value # Default
+#   value: <value>
+# Env from ConfigMap (for secret type = secret)
+# <env>:
+#   type: configMap
+#   name: <configMap name>
+#   key: <configMap key>
+# Ignore en env:
+# <env>:
+#   type: none
+env: {}
+# ConfigMap or secret from env name override
+configMapNameOverride:
+  cm2: overitten
+
+image:
+  repository: camptocamp/main
+  tag: latest
+  sha:
+  pullPolicy: IfNotPresent
+
+sub:
+  serviceName: sub
+  image:
+    repository: camptocamp/sub
+    sha: 1234
+    tag: latest
+  env:
+    direct:
+      value: test
+    directvalue:
+      type: value
+      value: test
+    configmap:
+      type: configMap
+      name: cm
+      key: data
+    configmapoverride:
+      type: configMap
+      name: cm2
+      key: data
+    comfigmap:
+      type: secret
+      name: s
+      key: data
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 10m
+    limits:
+      memory: 1Gi
+
+serviceAccount:
+  create: false
+  name: default
+
+podSecurityContext: {}
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 33 # www-data
+  readOnlyRootFilesystem: true
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
