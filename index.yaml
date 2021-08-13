@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  common:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2021-08-13T13:33:20.511442529Z"
+    description: Camptocamp shared functions
+    digest: a2e90b036cb2909980f74fedc8df0565ca4756d9dd4051ee0c16de795838ade1
+    name: common
+    type: library
+    urls:
+    - https://github.com/camptocamp/helm-common/releases/download/0.1.1/common-0.1.1.tgz
+    version: 0.1.1
+generated: "2021-08-13T13:33:20.511447629Z"
