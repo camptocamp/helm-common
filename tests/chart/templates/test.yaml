@@ -1,0 +1,10 @@
+Chart: {{ toYaml .Chart | nindent 2}}
+Template: {{ toYaml .Template  | nindent 2}}
+Values: {{ toYaml .Values  | nindent 2}}
+Release: {{ toYaml .Release  | nindent 2}}
+name: {{ include "common.name" ( dict "root" . "service" .Values ) }}
+fullname: {{ include "common.fullname" ( dict "root" . "service" .Values ) }}
+chart: {{ include "common.chart" . }}
+labels: {{ include "common.labels" ( dict "root" . "service" .Values )  | nindent 2}}
+selectorLabels: {{ include "common.selectorLabels" ( dict "root" . "service" .Values )  | nindent 2}}
+serviceAccountName: {{ include "common.serviceAccountName" ( dict "root" . "service" .Values ) }}

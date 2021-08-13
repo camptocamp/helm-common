@@ -1,0 +1,217 @@
+---
+# Source: testlib/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-testlib
+  labels: 
+    helm.sh/chart: testlib-0.1.0
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: testlib
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: main
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: testlib
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: main
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: testlib
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: main
+    spec:
+      
+      serviceAccountName: default
+      securityContext:
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        runAsUser: 33
+      affinity:
+          
+        {}
+      containers:
+        - name: "main"
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 33
+          image: "camptocamp/main:latest"
+          imagePullPolicy: IfNotPresent
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            {}
+---
+# Source: testlib/templates/sub-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-testlib-sub
+  labels: 
+    helm.sh/chart: testlib-0.1.0
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: testlib
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: sub
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: testlib
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: sub
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: testlib
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: sub
+    spec:
+      
+      serviceAccountName: default
+      securityContext:
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        runAsUser: 33
+      affinity:
+          
+        {}
+      containers:
+        - name: "main"
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 33
+          image: "camptocamp/sub@sha256:1234"
+          imagePullPolicy: IfNotPresent
+          env:
+              - name: "comfigmap"
+                valueFrom:
+                  secretKeyRef:
+                    name: "s"
+                    key: "data"
+              - name: "configmap"
+                valueFrom:
+                  configMapKeyRef:
+                    name: "cm"
+                    key: "data"
+              - name: "configmapoverride"
+                valueFrom:
+                  configMapKeyRef:
+                    name: "overitten"
+                    key: "data"
+              - name: "direct"
+                value: "test"
+              - name: "directvalue"
+                value: "test"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+---
+# Source: testlib/templates/test.yaml
+Chart: 
+  apiVersion: v2
+  appVersion: "1.0"
+  dependencies:
+  - enabled: true
+    name: common
+    repository: file://../..
+    version: 0.1.0
+  description: Test
+  name: testlib
+  version: 0.1.0
+Template: 
+  BasePath: testlib/templates
+  Name: testlib/templates/test.yaml
+Values: 
+  affinity: {}
+  common:
+    global: {}
+  configMapNameOverride:
+    cm2: overitten
+  env: {}
+  fullnameOverride: ""
+  image:
+    pullPolicy: IfNotPresent
+    repository: camptocamp/main
+    sha: null
+    tag: latest
+  imagePullSecrets: []
+  nameOverride: ""
+  nodeSelector: {}
+  podSecurityContext: {}
+  replicaCount: 1
+  resources: {}
+  securityContext:
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 33
+  serviceAccount:
+    create: false
+    name: default
+  sub:
+    env:
+      comfigmap:
+        key: data
+        name: s
+        type: secret
+      configmap:
+        key: data
+        name: cm
+        type: configMap
+      configmapoverride:
+        key: data
+        name: cm2
+        type: configMap
+      direct:
+        value: test
+      directvalue:
+        type: value
+        value: test
+    image:
+      repository: camptocamp/sub
+      sha: 1234
+      tag: latest
+    resources:
+      limits:
+        memory: 1Gi
+      requests:
+        cpu: 10m
+        memory: 100Mi
+    serviceName: sub
+  tolerations: []
+Release: 
+  IsInstall: true
+  IsUpgrade: false
+  Name: test
+  Namespace: default
+  Revision: 1
+  Service: Helm
+name: testlib
+fullname: test-testlib
+chart: testlib-0.1.0
+labels: 
+  helm.sh/chart: testlib-0.1.0
+  app.kubernetes.io/version: "1.0"
+  app.kubernetes.io/managed-by: Helm
+  app.kubernetes.io/name: testlib
+  app.kubernetes.io/instance: test
+  app.kubernetes.io/component: main
+selectorLabels: 
+  app.kubernetes.io/name: testlib
+  app.kubernetes.io/instance: test
+  app.kubernetes.io/component: main
+serviceAccountName: default
