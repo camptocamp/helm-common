@@ -75,7 +75,7 @@ common.podConfig" ( dict
   "affinitySelector" (dict
     "app.kubernetes.io/instance" .Release.Name
     "app.kubernetes.io/name" ( include "common.name" . )
-    "service" "<servicename>"
+    "app.kubernetes.io/component" "<servicename>"
   )
 )
 ```
