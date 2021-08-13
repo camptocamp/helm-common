@@ -34,7 +34,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 33
       affinity:
-          
         {}
       containers:
         - name: "main"
@@ -83,8 +82,23 @@ spec:
         runAsNonRoot: true
         runAsUser: 33
       affinity:
-          
-        {}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                - sub
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                - test
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - testlib
+            topologyKey: "kubernetes.io/hostname"
       containers:
         - name: "main"
           securityContext:

@@ -89,7 +89,7 @@ nodeSelector:
   {{- toYaml . | nindent 2 }}
 {{- end }}
 affinity:
-  {{- if .service.affinity }}
+  {{- if .service.affinity -}}
     {{ toYaml .service.affinity | nindent 2 }}
   {{- else if .affinitySelector }}
   podAntiAffinity:
@@ -103,7 +103,7 @@ affinity:
           - {{ $value }}
         {{- end }}
       topologyKey: "kubernetes.io/hostname"
-  {{- else }}
+  {{- else -}}
     {{ toYaml .root.Values.affinity | nindent 2 }}
   {{- end }}
 {{- with .root.Values.tolerations }}
