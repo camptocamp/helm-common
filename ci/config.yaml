@@ -13,6 +13,9 @@ checks:
   gitattribute: false
 
 publish:
+  helm:
+    folders:
+      - .
   docker:
     images: []
   pypi:
