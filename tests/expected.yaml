@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: test-testlib
-  labels: 
+  labels:
     helm.sh/chart: testlib-0.1.0
     app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Helm
@@ -27,7 +27,7 @@ spec:
         app.kubernetes.io/instance: test
         app.kubernetes.io/component: main
     spec:
-      
+
       serviceAccountName: default
       securityContext:
         readOnlyRootFilesystem: true
@@ -52,7 +52,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: test-testlib-sub
-  labels: 
+  labels:
     helm.sh/chart: testlib-0.1.0
     app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Helm
@@ -75,7 +75,7 @@ spec:
         app.kubernetes.io/instance: test
         app.kubernetes.io/component: sub
     spec:
-      
+
       serviceAccountName: default
       securityContext:
         readOnlyRootFilesystem: true
@@ -136,7 +136,7 @@ spec:
               memory: 100Mi
 ---
 # Source: testlib/templates/test.yaml
-Chart: 
+Chart:
   apiVersion: v2
   appVersion: "1.0"
   dependencies:
@@ -147,10 +147,10 @@ Chart:
   description: Test
   name: testlib
   version: 0.1.0
-Template: 
+Template:
   BasePath: testlib/templates
   Name: testlib/templates/test.yaml
-Values: 
+Values:
   affinity: {}
   common:
     global: {}
@@ -207,7 +207,7 @@ Values:
         memory: 100Mi
     serviceName: sub
   tolerations: []
-Release: 
+Release:
   IsInstall: true
   IsUpgrade: false
   Name: test
@@ -217,14 +217,14 @@ Release:
 name: testlib
 fullname: test-testlib
 chart: testlib-0.1.0
-labels: 
+labels:
   helm.sh/chart: testlib-0.1.0
   app.kubernetes.io/version: "1.0"
   app.kubernetes.io/managed-by: Helm
   app.kubernetes.io/name: testlib
   app.kubernetes.io/instance: test
   app.kubernetes.io/component: main
-selectorLabels: 
+selectorLabels:
   app.kubernetes.io/name: testlib
   app.kubernetes.io/instance: test
   app.kubernetes.io/component: main
