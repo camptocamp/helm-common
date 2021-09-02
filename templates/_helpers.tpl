@@ -70,7 +70,7 @@ Create the name of the service account to use
 */}}
 {{- define "common.serviceAccountName" -}}
 {{- if .root.Values.serviceAccount.create }}
-{{- default (include "common.fullname" .) .root.Values.serviceAccount.name }}
+{{- default ( include "common.fullname" . ) .root.Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .root.Values.serviceAccount.name }}
 {{- end }}
@@ -82,7 +82,7 @@ Create the name of the service account to use
 imagePullSecrets:
 {{- toYaml . | nindent 2 }}
 {{- end }}
-serviceAccountName: {{ template "common.serviceAccountName" . }}
+serviceAccountName: {{ include "common.serviceAccountName" . }}
 securityContext: {{- toYaml .root.Values.securityContext | nindent 2 }}
 {{- with .service.nodeSelector }}
 nodeSelector:

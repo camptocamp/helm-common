@@ -4,7 +4,6 @@ checks:
   required_workflows:
     clean.yaml: false
     audit.yaml: false
-    dependabot-auto-merge.yaml: false
     backport.yaml: false
     codeql.yaml: false
   black:
@@ -15,7 +14,3 @@ publish:
   helm:
     folders:
       - .
-  docker:
-    images: []
-  pypi:
-    packages: []
