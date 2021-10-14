@@ -61,37 +61,19 @@ sub:
       cpu: 10m
     limits:
       memory: 1Gi
-      cpu: 1
-
-  containerSecurityContext:
-    runAsNonRoot: true
-    runAsUser: 33 # www-data
-    readOnlyRootFilesystem: true
-
-containerSecurityContext:
-  runAsNonRoot: true
-  runAsUser: 34
-  readOnlyRootFilesystem: true
 
 serviceAccount:
   create: false
   name: default
 
-podSecurityContext:
-  runAsNonRoot: true
-  runAsUser: 35
+podSecurityContext: {}
 
 securityContext:
   runAsNonRoot: true
-  runAsUser: 36
+  runAsUser: 33 # www-data
+  readOnlyRootFilesystem: true
 
-resources:
-  requests:
-    memory: 200Mi
-    cpu: 20m
-  limits:
-    memory: 2Gi
-    cpu: 2
+resources: {}
 
 nodeSelector: {}
 

@@ -79,7 +79,3 @@ common.podConfig" ( dict
   )
 )
 ```
-
-# Security context
-
-To fill the `securityContext` we use `securityContext` in the pod and `containerSecurityContext` in the container.
