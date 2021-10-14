@@ -30,22 +30,25 @@ spec:
 
       serviceAccountName: default
       securityContext:
-        readOnlyRootFilesystem: true
         runAsNonRoot: true
-        runAsUser: 33
+        runAsUser: 36
       affinity:
         {}
       containers:
         - name: "main"
           securityContext:
-            readOnlyRootFilesystem: true
             runAsNonRoot: true
-            runAsUser: 33
+            runAsUser: 36
           image: "camptocamp/main:latest"
           imagePullPolicy: IfNotPresent
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
-            {}
+            limits:
+              cpu: 2
+              memory: 2Gi
+            requests:
+              cpu: 20m
+              memory: 200Mi
 ---
 # Source: testlib/templates/sub-deployment.yaml
 apiVersion: apps/v1
@@ -78,9 +81,8 @@ spec:
 
       serviceAccountName: default
       securityContext:
-        readOnlyRootFilesystem: true
         runAsNonRoot: true
-        runAsUser: 33
+        runAsUser: 36
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -102,9 +104,8 @@ spec:
       containers:
         - name: "main"
           securityContext:
-            readOnlyRootFilesystem: true
             runAsNonRoot: true
-            runAsUser: 33
+            runAsUser: 36
           image: "camptocamp/sub@sha256:1234"
           imagePullPolicy: IfNotPresent
           env:
@@ -130,6 +131,7 @@ spec:
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             limits:
+              cpu: 1
               memory: 1Gi
             requests:
               cpu: 10m
@@ -137,6 +139,7 @@ spec:
 ---
 # Source: testlib/templates/test.yaml
 Chart:
+  IsRoot: true
   apiVersion: v2
   appVersion: "1.0"
   dependencies:
@@ -166,13 +169,20 @@ Values:
   imagePullSecrets: []
   nameOverride: ""
   nodeSelector: {}
-  podSecurityContext: {}
-  replicaCount: 1
-  resources: {}
-  securityContext:
-    readOnlyRootFilesystem: true
+  podSecurityContext:
     runAsNonRoot: true
-    runAsUser: 33
+    runAsUser: 35
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 2
+      memory: 2Gi
+    requests:
+      cpu: 20m
+      memory: 200Mi
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 36
   serviceAccount:
     create: false
     name: default
@@ -201,6 +211,7 @@ Values:
       tag: latest
     resources:
       limits:
+        cpu: 1
         memory: 1Gi
       requests:
         cpu: 10m
