@@ -63,16 +63,6 @@ sub:
       memory: 1Gi
       cpu: 1
 
-  containerSecurityContext:
-    runAsNonRoot: true
-    runAsUser: 33 # www-data
-    readOnlyRootFilesystem: true
-
-containerSecurityContext:
-  runAsNonRoot: true
-  runAsUser: 34
-  readOnlyRootFilesystem: true
-
 serviceAccount:
   create: false
   name: default

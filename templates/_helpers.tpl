@@ -113,7 +113,7 @@ tolerations:
 {{- end }}
 
 {{- define "common.containerConfig" -}}
-securityContext: {{- toYaml .root.Values.containerSecurityContext | nindent 2 }}
+securityContext: {{- toYaml .root.Values.securityContext | nindent 2 }}
 {{- if .container.image.sha }}
 image: "{{ .container.image.repository }}@sha256:{{ .container.image.sha }}"
 {{- else }}

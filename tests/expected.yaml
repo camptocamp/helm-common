@@ -37,9 +37,8 @@ spec:
       containers:
         - name: "main"
           securityContext:
-            readOnlyRootFilesystem: true
             runAsNonRoot: true
-            runAsUser: 34
+            runAsUser: 36
           image: "camptocamp/main:latest"
           imagePullPolicy: IfNotPresent
           terminationMessagePolicy: FallbackToLogsOnError
@@ -105,9 +104,8 @@ spec:
       containers:
         - name: "main"
           securityContext:
-            readOnlyRootFilesystem: true
             runAsNonRoot: true
-            runAsUser: 34
+            runAsUser: 36
           image: "camptocamp/sub@sha256:1234"
           imagePullPolicy: IfNotPresent
           env:
@@ -161,10 +159,6 @@ Values:
     global: {}
   configMapNameOverride:
     cm2: overitten
-  containerSecurityContext:
-    readOnlyRootFilesystem: true
-    runAsNonRoot: true
-    runAsUser: 34
   env: {}
   fullnameOverride: ""
   image:
@@ -193,10 +187,6 @@ Values:
     create: false
     name: default
   sub:
-    containerSecurityContext:
-      readOnlyRootFilesystem: true
-      runAsNonRoot: true
-      runAsUser: 33
     env:
       comfigmap:
         key: data
