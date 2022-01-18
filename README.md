@@ -1,7 +1,7 @@
 # Common functions
 
 This offer all the function from a default Helm chart and in addition:
-`common.podConfig`, `common.podConfig`
+`common.podConfig`, `common.containerConfig`
 
 The signature of `common.name`, `common.fullname`, `common.labels`, `common.selectorLabels` and
 `common.serviceAccountName` is changed to add the `serviceName`.
