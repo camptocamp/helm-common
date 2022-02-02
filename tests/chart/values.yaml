@@ -31,6 +31,9 @@ image:
   sha:
   pullPolicy: IfNotPresent
 
+podAnnotations:
+  name: main
+
 sub:
   serviceName: sub
   image:
@@ -62,6 +65,9 @@ sub:
     limits:
       memory: 1Gi
       cpu: 1
+
+  podAnnotations:
+    name: sub
 
 serviceAccount:
   create: false
