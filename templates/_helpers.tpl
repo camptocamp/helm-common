@@ -88,6 +88,10 @@ securityContext: {{- toYaml .root.Values.securityContext | nindent 2 }}
 nodeSelector:
   {{- toYaml . | nindent 2 }}
 {{- end }}
+{{- with .service.podAnnotations }}
+annotations:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
 affinity:
   {{- if .service.affinity -}}
     {{ toYaml .service.affinity | nindent 2 }}
