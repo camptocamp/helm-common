@@ -3,6 +3,10 @@ kind: Deployment
 metadata:
   name: {{ include "common.fullname" ( dict "root" . "service" .Values.sub ) }}
   labels: {{ include "common.labels" ( dict "root" . "service" .Values.sub ) | nindent 4 }}
+  {{- with .Values.sub.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -12,6 +16,10 @@ spec:
   template:
     metadata:
       labels: {{- include "common.selectorLabels" ( dict "root" . "service" .Values.sub ) | nindent 8 }}
+      {{- with .Values.sub.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec: {{- include "common.podConfig" ( dict
           "root" .
           "service" .Values.sub

@@ -1,4 +1,39 @@
 ---
+# Source: testlib/templates/test.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-testlib-capabilities-helm
+  labels:
+    helm.sh/chart: testlib-0.1.0
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: testlib
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: main
+data:
+  git_commit: d14138609b01886f544b2025f5000351c9eb092e
+  git_tree_state: clean
+  go_version: go1.17.5
+  version: v3.8.0
+---
+# Source: testlib/templates/test.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-testlib-capabilities-kube
+  labels:
+    helm.sh/chart: testlib-0.1.0
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: testlib
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: main
+data:
+  Major: "1"
+  Minor: "23"
+  Version: v1.23.0
+---
 # Source: testlib/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -11,6 +46,9 @@ metadata:
     app.kubernetes.io/name: testlib
     app.kubernetes.io/instance: test
     app.kubernetes.io/component: main
+  annotations:
+    name: main
+    name2: main
 spec:
   replicas: 1
   strategy:
@@ -26,14 +64,15 @@ spec:
         app.kubernetes.io/name: testlib
         app.kubernetes.io/instance: test
         app.kubernetes.io/component: main
+      annotations:
+        podname: main
+        podname2: main
     spec:
 
       serviceAccountName: default
       securityContext:
         runAsNonRoot: true
         runAsUser: 36
-      annotations:
-        name: main
       affinity:
         {}
       containers:
@@ -85,8 +124,6 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 36
-      annotations:
-        name: sub
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -140,111 +177,3 @@ spec:
             requests:
               cpu: 10m
               memory: 100Mi
----
-# Source: testlib/templates/test.yaml
-Chart:
-  IsRoot: true
-  apiVersion: v2
-  appVersion: "1.0"
-  dependencies:
-  - enabled: true
-    name: common
-    repository: file://../..
-    version: 0.1.0
-  description: Test
-  name: testlib
-  version: 0.1.0
-Template:
-  BasePath: testlib/templates
-  Name: testlib/templates/test.yaml
-Values:
-  affinity: {}
-  common:
-    global: {}
-  configMapNameOverride:
-    cm2: overitten
-  env: {}
-  fullnameOverride: ""
-  image:
-    pullPolicy: IfNotPresent
-    repository: camptocamp/main
-    sha: null
-    tag: latest
-  imagePullSecrets: []
-  nameOverride: ""
-  nodeSelector: {}
-  podAnnotations:
-    name: main
-  podSecurityContext:
-    runAsNonRoot: true
-    runAsUser: 35
-  replicaCount: 1
-  resources:
-    limits:
-      cpu: 2
-      memory: 2Gi
-    requests:
-      cpu: 20m
-      memory: 200Mi
-  securityContext:
-    runAsNonRoot: true
-    runAsUser: 36
-  serviceAccount:
-    create: false
-    name: default
-  sub:
-    env:
-      comfigmap:
-        key: data
-        name: s
-        type: secret
-      configmap:
-        key: data
-        name: cm
-        type: configMap
-      configmapoverride:
-        key: data
-        name: cm2
-        type: configMap
-      direct:
-        value: test
-      directvalue:
-        type: value
-        value: test
-    image:
-      repository: camptocamp/sub
-      sha: 1234
-      tag: latest
-    podAnnotations:
-      name: sub
-    resources:
-      limits:
-        cpu: 1
-        memory: 1Gi
-      requests:
-        cpu: 10m
-        memory: 100Mi
-    serviceName: sub
-  tolerations: []
-Release:
-  IsInstall: true
-  IsUpgrade: false
-  Name: test
-  Namespace: default
-  Revision: 1
-  Service: Helm
-name: testlib
-fullname: test-testlib
-chart: testlib-0.1.0
-labels:
-  helm.sh/chart: testlib-0.1.0
-  app.kubernetes.io/version: "1.0"
-  app.kubernetes.io/managed-by: Helm
-  app.kubernetes.io/name: testlib
-  app.kubernetes.io/instance: test
-  app.kubernetes.io/component: main
-selectorLabels:
-  app.kubernetes.io/name: testlib
-  app.kubernetes.io/instance: test
-  app.kubernetes.io/component: main
-serviceAccountName: default
