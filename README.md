@@ -13,16 +13,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "common.fullname" ( dict "root" . "service" .Values ) }}
-  labels: {{ include "common.labels2" ( dict "root" . "service" .Values ) | nindent 4 }}
+  labels: {{ include "common.labels" ( dict "root" . "service" .Values ) | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     type: RollingUpdate
   selector:
-    matchLabels: {{- include "common.selectorLabels2" ( dict "root" . "service" .Values ) | nindent 6 }}
+    matchLabels: {{- include "common.selectorLabels" ( dict "root" . "service" .Values ) | nindent 6 }}
   template:
     metadata:
-      labels: {{- include "common.selectorLabels2" ( dict "root" . "service" .Values ) | nindent 8 }}
+      labels: {{- include "common.selectorLabels" ( dict "root" . "service" .Values ) | nindent 8 }}
     spec: {{- include "common.podConfig" ( dict "root" . "service" .Values ) | nindent 6 }}
       containers:
         - name: "main"
