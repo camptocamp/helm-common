@@ -63,6 +63,11 @@ sub:
       type: secret
       name: s
       key: data
+    aa_last:
+      value: aa$(zz_first)aa
+      order: 1
+    zz_first:
+      value: zz
   resources:
     requests:
       memory: 100Mi
