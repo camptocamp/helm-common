@@ -171,6 +171,10 @@ spec:
                 value: "test"
               - name: "directvalue"
                 value: "test"
+              - name: "zz_first"
+                value: "zz"
+              - name: "aa_last"
+                value: "aa$(zz_first)aa"
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             limits:

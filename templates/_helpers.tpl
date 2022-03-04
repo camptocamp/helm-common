@@ -112,6 +112,21 @@ tolerations:
 {{- end }}
 {{- end }}
 
+{{- define "common.oneEnv" -}}
+{{- if eq ( default "value" .value.type ) "value" }}
+- name: {{ .name | quote }}
+  value: {{ .value.value | quote }}
+{{- else }}
+{{- if ne .value.type "none" }}
+- name: {{ .name | quote }}
+  valueFrom:
+    {{ .value.type }}KeyRef:
+      name: {{ default .value.name ( get .configMapNameOverride .value.name ) | quote }}
+      key: {{ .value.key | quote }}
+{{- end }}
+{{- end }}
+{{- end }}
+
 {{- define "common.containerConfig" -}}
 securityContext: {{- toYaml .root.Values.securityContext | nindent 2 }}
 {{- if .container.image.sha }}
@@ -124,17 +139,15 @@ imagePullPolicy: {{ .root.Values.image.pullPolicy }}
 env:
   {{- $configMapNameOverride := .root.Values.configMapNameOverride }}
   {{- range $name, $value := .container.env }}
-    {{- if eq ( default "value" $value.type ) "value" }}
-    - name: {{ $name | quote }}
-      value: {{ $value.value | quote }}
-    {{- else }}
-    {{- if ne $value.type "none" }}
-    - name: {{ $name | quote }}
-      valueFrom:
-        {{ $value.type }}KeyRef:
-          name: {{ default $value.name ( get $configMapNameOverride $value.name ) | quote }}
-          key: {{ $value.key | quote }}
+    {{- $order := int ( default 0 $value.order ) -}}
+    {{- if ( le $order 0 ) }}
+      {{- include "common.oneEnv" ( dict "name" $name "value" $value "configMapNameOverride" $configMapNameOverride ) | indent 4 -}}
     {{- end }}
+  {{- end }}
+  {{- range $name, $value := .container.env }}
+    {{- $order := int ( default 0 $value.order ) -}}
+    {{- if ( gt $order 0 ) }}
+      {{- include "common.oneEnv" ( dict "name" $name "value" $value "configMapNameOverride" $configMapNameOverride ) | indent 4 -}}
     {{- end }}
   {{- end }}
 {{- end }}
