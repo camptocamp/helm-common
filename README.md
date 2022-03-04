@@ -50,7 +50,7 @@ env:
     value: toto
 ```
 
-It the type is `none` the environment variable will be ignored, example:
+If the type is `none` the environment variable will be ignored, example:
 
 ```yaml
 env:
