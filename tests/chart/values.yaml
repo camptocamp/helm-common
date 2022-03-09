@@ -39,6 +39,14 @@ podAnnotations:
   podname: main
   podname2: main
 
+labels:
+  label: main
+  label2: main2
+
+podLabels:
+  label: main3
+  label2: main4
+
 sub:
   serviceName: sub
   image:
@@ -59,7 +67,7 @@ sub:
       type: configMap
       name: cm2
       key: data
-    comfigmap:
+    secret:
       type: secret
       name: s
       key: data

@@ -46,6 +46,8 @@ metadata:
     app.kubernetes.io/name: testlib
     app.kubernetes.io/instance: test
     app.kubernetes.io/component: main
+    label: main
+    label2: main2
   annotations:
     name: main
     name2: main
@@ -65,11 +67,12 @@ spec:
         app.kubernetes.io/name: testlib
         app.kubernetes.io/instance: test
         app.kubernetes.io/component: main
+        label: main3
+        label2: main4
       annotations:
         podname: main
         podname2: main
     spec:
-
       serviceAccountName: default
       securityContext:
         runAsNonRoot: true
@@ -121,7 +124,6 @@ spec:
         app.kubernetes.io/instance: test
         app.kubernetes.io/component: sub
     spec:
-
       serviceAccountName: default
       securityContext:
         runAsNonRoot: true
@@ -152,29 +154,29 @@ spec:
           image: "camptocamp/sub@sha256:1234"
           imagePullPolicy: IfNotPresent
           env:
-              - name: "comfigmap"
-                valueFrom:
-                  secretKeyRef:
-                    name: "s"
-                    key: "data"
-              - name: "configmap"
-                valueFrom:
-                  configMapKeyRef:
-                    name: "cm"
-                    key: "data"
-              - name: "configmapoverride"
-                valueFrom:
-                  configMapKeyRef:
-                    name: "overitten"
-                    key: "data"
-              - name: "direct"
-                value: "test"
-              - name: "directvalue"
-                value: "test"
-              - name: "zz_first"
-                value: "zz"
-              - name: "aa_last"
-                value: "aa$(zz_first)aa"
+            - name: "configmap"
+              valueFrom:
+                configMapKeyRef:
+                  name: "cm"
+                  key: "data"
+            - name: "configmapoverride"
+              valueFrom:
+                configMapKeyRef:
+                  name: "overitten"
+                  key: "data"
+            - name: "direct"
+              value: "test"
+            - name: "directvalue"
+              value: "test"
+            - name: "secret"
+              valueFrom:
+                secretKeyRef:
+                  name: "s"
+                  key: "data"
+            - name: "zz_first"
+              value: "zz"
+            - name: "aa_last"
+              value: "aa$(zz_first)aa"
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             limits:
