@@ -5,7 +5,7 @@ kind: ConfigMap
 metadata:
   name: test-testlib-capabilities-helm
   labels:
-    helm.sh/chart: testlib-0.1.0
+    helm.sh/chart: testlib
     app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: testlib
@@ -23,7 +23,7 @@ kind: ConfigMap
 metadata:
   name: test-testlib-capabilities-kube
   labels:
-    helm.sh/chart: testlib-0.1.0
+    helm.sh/chart: testlib
     app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: testlib
@@ -40,7 +40,7 @@ kind: Deployment
 metadata:
   name: test-testlib
   labels:
-    helm.sh/chart: testlib-0.1.0
+    helm.sh/chart: testlib
     app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: testlib
@@ -98,7 +98,7 @@ kind: Deployment
 metadata:
   name: test-testlib-sub
   labels:
-    helm.sh/chart: testlib-0.1.0
+    helm.sh/chart: testlib
     app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: testlib
