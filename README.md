@@ -13,7 +13,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "common.fullname" ( dict "root" . "service" .Values ) }}
-  labels: {{ include "common.labels" ( dict "root" . "service" .Values ) | nindent 4 }}
+  {{- include "common.metadata" ( dict "root" . "service" .Values ) | nindent 2 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -21,8 +21,7 @@ spec:
   selector:
     matchLabels: {{- include "common.selectorLabels" ( dict "root" . "service" .Values ) | nindent 6 }}
   template:
-    metadata:
-      labels: {{- include "common.selectorLabels" ( dict "root" . "service" .Values ) | nindent 8 }}
+    metadata: {{- include "common.podMetadata" ( dict "root" . "service" .Values ) | nindent 6 }}
     spec: {{- include "common.podConfig" ( dict "root" . "service" .Values ) | nindent 6 }}
       containers:
         - name: "main"

@@ -77,11 +77,11 @@ Create the name of the service account to use
 {{- end }}
 
 
-{{- define "common.podConfig" }}
-{{- with .root.Values.imagePullSecrets }}
+{{- define "common.podConfig" -}}
+{{- with .root.Values.imagePullSecrets -}}
 imagePullSecrets:
 {{- toYaml . | nindent 2 }}
-{{- end }}
+{{- end -}}
 serviceAccountName: {{ include "common.serviceAccountName" . }}
 securityContext: {{- toYaml .root.Values.securityContext | nindent 2 }}
 {{- with .service.nodeSelector }}
@@ -141,16 +141,38 @@ env:
   {{- range $name, $value := .container.env }}
     {{- $order := int ( default 0 $value.order ) -}}
     {{- if ( le $order 0 ) }}
-      {{- include "common.oneEnv" ( dict "name" $name "value" $value "configMapNameOverride" $configMapNameOverride ) | indent 4 -}}
+      {{- include "common.oneEnv" ( dict "name" $name "value" $value "configMapNameOverride" $configMapNameOverride ) | indent 2 -}}
     {{- end }}
   {{- end }}
   {{- range $name, $value := .container.env }}
     {{- $order := int ( default 0 $value.order ) -}}
     {{- if ( gt $order 0 ) }}
-      {{- include "common.oneEnv" ( dict "name" $name "value" $value "configMapNameOverride" $configMapNameOverride ) | indent 4 -}}
+      {{- include "common.oneEnv" ( dict "name" $name "value" $value "configMapNameOverride" $configMapNameOverride ) | indent 2 -}}
     {{- end }}
   {{- end }}
 {{- end }}
 terminationMessagePolicy: FallbackToLogsOnError
 resources: {{- toYaml .container.resources | nindent 2 }}
+{{- end }}
+
+{{- define "common.metadata" -}}
+labels: {{ include "common.labels" . | nindent 2 }}
+{{- range $key, $value := .service.labels }}
+  {{ $key }}: {{ $value }}
+{{- end }}
+{{- with .service.annotations }}
+annotations:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
+{{- end }}
+
+{{- define "common.podMetadata" -}}
+labels: {{ include "common.selectorLabels" . | nindent 2 }}
+{{- range $key, $value := .service.podLabels }}
+  {{ $key }}: {{ $value }}
+{{- end }}
+{{- with .service.podAnnotations }}
+annotations:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
 {{- end }}
