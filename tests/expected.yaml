@@ -70,8 +70,8 @@ spec:
         label: main3
         label2: main4
       annotations:
-        podname: main
-        podname2: main
+        podName: main
+        podName2: main
     spec:
       serviceAccountName: default
       securityContext:
@@ -154,19 +154,19 @@ spec:
           image: "camptocamp/sub@sha256:1234"
           imagePullPolicy: IfNotPresent
           env:
-            - name: "configmap"
+            - name: "configMap"
               valueFrom:
                 configMapKeyRef:
                   name: "cm"
                   key: "data"
-            - name: "configmapoverride"
+            - name: "configMapOverride"
               valueFrom:
                 configMapKeyRef:
-                  name: "overitten"
+                  name: "overwritten"
                   key: "data"
             - name: "direct"
               value: "test"
-            - name: "directvalue"
+            - name: "directValue"
               value: "test"
             - name: "secret"
               valueFrom:
