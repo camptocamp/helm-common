@@ -78,7 +78,7 @@ Create the name of the service account to use
 
 
 {{- define "common.podConfig" -}}
-{{- with .root.Values.imagePullSecrets -}}
+{{- with .root.Values.global.pullSecrets -}}
 imagePullSecrets:
 {{- toYaml . | nindent 2 }}
 {{- end -}}
@@ -134,10 +134,10 @@ image: "{{ .container.image.repository }}@sha256:{{ .container.image.sha }}"
 {{- else }}
 image: "{{ .container.image.repository }}:{{ .container.image.tag }}"
 {{- end }}
-imagePullPolicy: {{ .root.Values.image.pullPolicy }}
+imagePullPolicy: {{ .root.Values.global.image.pullPolicy }}
 {{- if not ( empty .container.env ) }}
 env:
-  {{- $configMapNameOverride := .root.Values.configMapNameOverride }}
+  {{- $configMapNameOverride := .root.Values.global.configMapNameOverride }}
   {{- range $name, $value := .container.env }}
     {{- $order := int ( default 0 $value.order ) -}}
     {{- if ( le $order 0 ) }}

@@ -1,11 +1,17 @@
-# Default values for mapserver.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
+global:
+  image:
+    pullSecrets: []
+    pullPolicy: IfNotPresent
+  # ConfigMap or secret from env name override
+  configMapNameOverride:
+    cm2: overwritten
 
 nameOverride: ''
 fullnameOverride: ''
 
-imagePullSecrets: []
 replicaCount: 1
 
 # Direct env value:
@@ -21,23 +27,19 @@ replicaCount: 1
 # <env>:
 #   type: none
 env: {}
-# ConfigMap or secret from env name override
-configMapNameOverride:
-  cm2: overitten
 
 image:
   repository: camptocamp/main
   tag: latest
   sha:
-  pullPolicy: IfNotPresent
 
 annotations:
   name: main
   name2: main
 
 podAnnotations:
-  podname: main
-  podname2: main
+  podName: main
+  podName2: main
 
 labels:
   label: main
@@ -56,14 +58,14 @@ sub:
   env:
     direct:
       value: test
-    directvalue:
+    directValue:
       type: value
       value: test
-    configmap:
+    configMap:
       type: configMap
       name: cm
       key: data
-    configmapoverride:
+    configMapOverride:
       type: configMap
       name: cm2
       key: data
