@@ -78,6 +78,8 @@ sub:
       order: 1
     zz_first:
       value: zz
+    none:
+      value: 'None'
   resources:
     requests:
       memory: 100Mi

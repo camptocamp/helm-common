@@ -168,6 +168,8 @@ spec:
               value: "test"
             - name: "directValue"
               value: "test"
+            - name: "none"
+              value: "None"
             - name: "secret"
               valueFrom:
                 secretKeyRef:
