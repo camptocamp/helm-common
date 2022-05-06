@@ -15,6 +15,13 @@ jobs:
     timeout-minutes: 20
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
+    strategy:
+      fail-fast: false
+      matrix:
+        helm:
+          - latest
+          - 3.5.1
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -33,12 +40,15 @@ jobs:
         run: c2cciutils-checks
 
       - uses: azure/setup-helm@v1
+        with:
+          version: ${{ matrix.helm }}
       - run: helm lint .
 
       - run: helm dependency update tests/chart
-      - run: helm lint tests/chart
       - run: helm template --namespace=default test tests/chart > tests/actual.yaml
       - run: diff -Naur --ignore-trailing-space tests/expected.yaml tests/actual.yaml
+        if: matrix.helm == 'latest'
+      - run: helm lint tests/chart
 
       - name: Setup k3s/k3d
         run: c2cciutils-k8s-install
@@ -46,3 +56,4 @@ jobs:
 
       - name: Publish
         run: c2cciutils-publish
+        if: matrix.helm == 'latest'
