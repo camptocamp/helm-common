@@ -78,7 +78,7 @@ Create the name of the service account to use
 
 
 {{- define "common.podConfig" -}}
-{{- with .root.Values.global.pullSecrets -}}
+{{- with .root.Values.global.image.pullSecrets -}}
 imagePullSecrets:
 {{- toYaml . | nindent 2 }}
 {{- end -}}
