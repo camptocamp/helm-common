@@ -81,7 +81,7 @@ Create the name of the service account to use
 {{- with .root.Values.global.image.pullSecrets -}}
 imagePullSecrets:
 {{- toYaml . | nindent 2 }}
-{{- end -}}
+{{ end -}}
 serviceAccountName: {{ include "common.serviceAccountName" . }}
 securityContext: {{- toYaml .root.Values.securityContext | nindent 2 }}
 {{- with .service.nodeSelector }}

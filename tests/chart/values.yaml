@@ -3,7 +3,8 @@
 
 global:
   image:
-    pullSecrets: []
+    pullSecrets:
+      - name: test
     pullPolicy: IfNotPresent
   # ConfigMap or secret from env name override
   configMapNameOverride:

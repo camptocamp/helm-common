@@ -73,6 +73,8 @@ spec:
         podName: main
         podName2: main
     spec:
+      imagePullSecrets:
+        - name: test
       serviceAccountName: default
       securityContext:
         runAsNonRoot: true
@@ -124,6 +126,8 @@ spec:
         app.kubernetes.io/instance: test
         app.kubernetes.io/component: sub
     spec:
+      imagePullSecrets:
+        - name: test
       serviceAccountName: default
       securityContext:
         runAsNonRoot: true
