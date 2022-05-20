@@ -1,39 +1,4 @@
 ---
-# Source: testlib/templates/test.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: test-testlib-capabilities-helm
-  labels:
-    helm.sh/chart: testlib
-    app.kubernetes.io/version: "1.0"
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: testlib
-    app.kubernetes.io/instance: test
-    app.kubernetes.io/component: main
-data:
-  git_commit: 6e3701edea09e5d55a8ca2aae03a68917630e91b
-  git_tree_state: clean
-  go_version: go1.17.5
-  version: v3.8.2
----
-# Source: testlib/templates/test.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: test-testlib-capabilities-kube
-  labels:
-    helm.sh/chart: testlib
-    app.kubernetes.io/version: "1.0"
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: testlib
-    app.kubernetes.io/instance: test
-    app.kubernetes.io/component: main
-data:
-  Major: "1"
-  Minor: "23"
-  Version: v1.23.0
----
 # Source: testlib/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
