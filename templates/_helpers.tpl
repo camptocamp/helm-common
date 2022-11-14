@@ -158,7 +158,7 @@ resources: {{- toYaml .container.resources | nindent 2 }}
 {{- define "common.metadata" -}}
 labels: {{ include "common.labels" . | nindent 2 }}
 {{- range $key, $value := .service.labels }}
-  {{ $key }}: {{ $value }}
+  {{ $key }}: {{ $value | quote }}
 {{- end }}
 {{- with .service.annotations }}
 annotations:
@@ -169,7 +169,7 @@ annotations:
 {{- define "common.podMetadata" -}}
 labels: {{ include "common.selectorLabels" . | nindent 2 }}
 {{- range $key, $value := .service.podLabels }}
-  {{ $key }}: {{ $value }}
+  {{ $key }}: {{ $value | quote }}
 {{- end }}
 {{- with .service.podAnnotations }}
 annotations:
