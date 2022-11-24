@@ -1,5 +1,46 @@
 # Changelog
 
+## [0.3.0](https://github.com/camptocamp/helm-common/tree/0.3.0) (2022-11-14)
+
+[Full Changelog](https://github.com/camptocamp/helm-common/compare/0.2.3...0.3.0)
+
+#### :bug: Bug Fixes
+
+- Be able to put boolean values in annotations and in labels [\#87](https://github.com/camptocamp/helm-common/pull/87) ([sbrunner](https://github.com/sbrunner))
+
+#### :books: Documentation
+
+- Add generated changelog [\#67](https://github.com/camptocamp/helm-common/pull/67) ([sbrunner](https://github.com/sbrunner))
+
+#### :wrench: Build, CI, Tests, Code style
+
+- Fix repository in workflow used to delete old workflow runs [\#86](https://github.com/camptocamp/helm-common/pull/86) ([sbrunner](https://github.com/sbrunner))
+- Fix repository in workflow used to delete old workflow runs [\#85](https://github.com/camptocamp/helm-common/pull/85) ([sbrunner](https://github.com/sbrunner))
+- Add workflow to delete old workflow runs [\#83](https://github.com/camptocamp/helm-common/pull/83) ([sbrunner](https://github.com/sbrunner))
+- Fix the get config in changelog workflow [\#78](https://github.com/camptocamp/helm-common/pull/78) ([sbrunner](https://github.com/sbrunner))
+- Schedule Renovate on early Saturday [\#75](https://github.com/camptocamp/helm-common/pull/75) ([sbrunner](https://github.com/sbrunner))
+- Fix the changelog generator workflow [\#73](https://github.com/camptocamp/helm-common/pull/73) ([sbrunner](https://github.com/sbrunner))
+- Clean all the images already present in the image given by GitHub [\#72](https://github.com/camptocamp/helm-common/pull/72) ([sbrunner](https://github.com/sbrunner))
+- Update the changelog generation workflow [\#71](https://github.com/camptocamp/helm-common/pull/71) ([sbrunner](https://github.com/sbrunner))
+- Remove Dependabot configuration [\#70](https://github.com/camptocamp/helm-common/pull/70) ([sbrunner](https://github.com/sbrunner))
+- Update the changelog [\#68](https://github.com/camptocamp/helm-common/pull/68) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Don't run 2 CI jobs in a pull request [\#63](https://github.com/camptocamp/helm-common/pull/63) ([sbrunner](https://github.com/sbrunner))
+
+#### :package: Dependencies update
+
+- Update dependency c2cciutils to v1.3.11 [\#84](https://github.com/camptocamp/helm-common/pull/84) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency c2cciutils to v1.3.10 [\#82](https://github.com/camptocamp/helm-common/pull/82) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency c2cciutils to v1.3.9 [\#81](https://github.com/camptocamp/helm-common/pull/81) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency c2cciutils to v1.3.7 [\#80](https://github.com/camptocamp/helm-common/pull/80) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency c2cciutils to v1.3.5 [\#79](https://github.com/camptocamp/helm-common/pull/79) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency c2cciutils to v1.3.0 [\#74](https://github.com/camptocamp/helm-common/pull/74) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency c2cciutils to v1.2.1 [\#69](https://github.com/camptocamp/helm-common/pull/69) ([renovate[bot]](https://github.com/apps/renovate))
+- Update azure/setup-helm action to v3 [\#66](https://github.com/camptocamp/helm-common/pull/66) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency c2cciutils to v1.2.0 [\#65](https://github.com/camptocamp/helm-common/pull/65) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency c2cciutils to v1.2.dev20220620100308 [\#64](https://github.com/camptocamp/helm-common/pull/64) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency c2cciutils to v1.2.dev20220601085126 [\#62](https://github.com/camptocamp/helm-common/pull/62) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency c2cciutils to v1.2.dev20220509122615 [\#60](https://github.com/camptocamp/helm-common/pull/60) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [0.2.3](https://github.com/camptocamp/helm-common/tree/0.2.3) (2022-05-20)
 
 [Full Changelog](https://github.com/camptocamp/helm-common/compare/0.2.2...0.2.3)
