@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.4.1](https://github.com/camptocamp/helm-common/tree/0.4.1) (2022-12-23)
+
+[Full Changelog](https://github.com/camptocamp/helm-common/compare/0.4.0...0.4.1)
+
+#### :bug: Bug Fixes
+
+- Fix missing trim to serviceName [\#96](https://github.com/camptocamp/helm-common/pull/96) ([danduk82](https://github.com/danduk82))
+
+## [0.4.0](https://github.com/camptocamp/helm-common/tree/0.4.0) (2022-12-23)
+
+[Full Changelog](https://github.com/camptocamp/helm-common/compare/0.3.0...0.4.0)
+
+#### :sparkles: Enhancements
+
+- GEO-6100: add logic for range over services [\#95](https://github.com/camptocamp/helm-common/pull/95) ([danduk82](https://github.com/danduk82))
+
+#### :wrench: Build, CI, Tests, Code style
+
+- Configure Renovate to run monthly [\#94](https://github.com/camptocamp/helm-common/pull/94) ([sbrunner](https://github.com/sbrunner))
+- Configure Mend Bolt [\#93](https://github.com/camptocamp/helm-common/pull/93) ([sbrunner](https://github.com/sbrunner))
+- Update the changelog [\#89](https://github.com/camptocamp/helm-common/pull/89) ([c2c-bot-gis-ci](https://github.com/c2c-bot-gis-ci))
+- Upgrade deprecated set-output commands [\#88](https://github.com/camptocamp/helm-common/pull/88) ([sbrunner](https://github.com/sbrunner))
+
+#### :package: Dependencies update
+
+- Update dependency c2cciutils to v1.4.0 [\#91](https://github.com/camptocamp/helm-common/pull/91) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency c2cciutils to v1.3.12 [\#90](https://github.com/camptocamp/helm-common/pull/90) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [0.3.0](https://github.com/camptocamp/helm-common/tree/0.3.0) (2022-11-14)
 
 [Full Changelog](https://github.com/camptocamp/helm-common/compare/0.2.3...0.3.0)
