@@ -3,9 +3,9 @@ Expand the name of the chart.
 */}}
 {{- define "common.servicenamePostfix" -}}
 {{- if .service.serviceName -}}
-{{ printf "-%s" .service.serviceName | trunc 10 }}
+{{ printf "-%s" .service.serviceName | trunc 10 | trimSuffix "-" }}
 {{- else if hasKey . "serviceName" -}}
-{{ printf "-%s" .serviceName | trunc 10 }}
+{{ printf "-%s" .serviceName | trunc 10 | trimSuffix "-"}}
 {{- end }}
 {{- end }}
 
