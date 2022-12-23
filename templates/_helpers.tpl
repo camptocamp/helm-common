@@ -4,6 +4,8 @@ Expand the name of the chart.
 {{- define "common.servicenamePostfix" -}}
 {{- if .service.serviceName -}}
 {{ printf "-%s" .service.serviceName | trunc 10 }}
+{{- else if hasKey . "serviceName" -}}
+{{ printf "-%s" .serviceName | trunc 10 }}
 {{- end }}
 {{- end }}
 
@@ -11,7 +13,7 @@ Expand the name of the chart.
 Expand the name of the chart.
 */}}
 {{- define "common.name" -}}
-{{- default .root.Chart.Name .root.Values.nameOverride | trunc 53 | trimSuffix "-" }}
+{{- default .root.Chart.Name .service.nameOverride | trunc 53 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -20,10 +22,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "common.fullname" -}}
-{{- if .root.Values.fullnameOverride }}
-{{- .root.Values.fullnameOverride | trunc 53 | trimSuffix "-" }}{{ include "common.servicenamePostfix" . }}
+{{- if and ( hasKey .service "fullnameOverride") (.service.fullnameOverride) }}
+{{- .service.fullnameOverride | trunc 53 | trimSuffix "-" }}{{ include "common.servicenamePostfix" . }}
 {{- else }}
-{{- $name := default .root.Chart.Name .root.Values.nameOverride }}
+{{- $name := default .root.Chart.Name .service.nameOverride }}
 {{- if contains $name .root.Release.Name }}
 {{- .root.Release.Name | trunc 63 | trimSuffix "-" }}{{ include "common.servicenamePostfix" . }}
 {{- else }}
@@ -58,8 +60,10 @@ Selector labels
 {{- define "common.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "common.name" . }}
 app.kubernetes.io/instance: {{ .root.Release.Name }}
-{{- if .service.serviceName }}
-app.kubernetes.io/component: {{ .service.serviceName }}
+{{- if hasKey .service "serviceName" }}
+app.kubernetes.io/component: {{ printf "%s" .service.serviceName }}
+{{- else if hasKey . "serviceName" }}
+app.kubernetes.io/component: {{ printf "%s" .serviceName }}
 {{- else }}
 app.kubernetes.io/component: main
 {{- end }}
@@ -76,6 +80,14 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{- define "common.dictToList" -}}
+{{ $keyName := (get . "keyName" | default "name")}}
+{{- range $key, $value := .contents -}}
+- {{ $keyName }}: {{ $key }}
+{{- $value | toYaml | nindent 2 }}
+{{ end -}}
+{{- end -}}
+
 
 {{- define "common.podConfig" -}}
 {{- with .root.Values.global.image.pullSecrets -}}
@@ -83,13 +95,13 @@ imagePullSecrets:
 {{- toYaml . | nindent 2 }}
 {{ end -}}
 serviceAccountName: {{ include "common.serviceAccountName" . }}
-securityContext: {{- toYaml .root.Values.securityContext | nindent 2 }}
+securityContext: {{- toYaml .root.Values.podSecurityContext | nindent 2 }}
 {{- with .service.nodeSelector }}
 nodeSelector:
   {{- toYaml . | nindent 2 }}
 {{- end }}
 affinity:
-  {{- if .service.affinity -}}
+  {{- if and (hasKey .service "affinity") (.service.affinity) -}}
     {{ toYaml .service.affinity | nindent 2 }}
   {{- else if .affinitySelector }}
   podAntiAffinity:
