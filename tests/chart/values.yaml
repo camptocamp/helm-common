@@ -9,9 +9,18 @@ global:
   # ConfigMap or secret from env name override
   configMapNameOverride:
     cm2: overwritten
+  revisionHistoryLimit: 1
 
 nameOverride: ''
 fullnameOverride: ''
+
+nameOverrideObject:
+  nameOverride: 'value-long-name-override-value-long-name-override-value'
+  fullnameOverride: ''
+
+fullnameOverrideObject:
+  nameOverride: ''
+  fullnameOverride: 'value-long-full-name-override-value-long-full-name-override-value'
 
 replicaCount: 1
 
