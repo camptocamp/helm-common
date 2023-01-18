@@ -48,7 +48,7 @@ Common labels
 {{- define "common.labels" -}}
 helm.sh/chart: {{ include "common.chart" .root }}
 {{- if .root.Chart.AppVersion }}
-app.kubernetes.io/version: {{ .root.Chart.AppVersion | squote }}
+app.kubernetes.io/version: {{ .root.Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .root.Release.Service }}
 {{ include "common.selectorLabels" . }}
@@ -126,15 +126,15 @@ tolerations:
 
 {{- define "common.oneEnv" -}}
 {{- if eq ( default "value" .value.type ) "value" }}
-- name: {{ .name | squote }}
-  value: {{ .value.value | squote }}
+- name: {{ .name | quote }}
+  value: {{ .value.value | toYaml }}
 {{- else }}
 {{- if ne .value.type "none" }}
-- name: {{ .name | squote }}
+- name: {{ .name | quote }}
   valueFrom:
     {{ .value.type }}KeyRef:
-      name: {{ default .value.name ( get .configMapNameOverride .value.name ) | squote }}
-      key: {{ .value.key | squote }}
+      name: {{ default .value.name ( get .configMapNameOverride .value.name ) | quote }}
+      key: {{ .value.key | quote }}
 {{- end }}
 {{- end }}
 {{- end }}

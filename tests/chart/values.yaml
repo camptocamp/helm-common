@@ -50,6 +50,9 @@ annotations:
   b2: 'true'
   i1: '1'
   f1: '1.1'
+  q1: "'"
+  q2: '"'
+  q3: '''"'
 
 podAnnotations:
   podName: main
@@ -58,6 +61,9 @@ podAnnotations:
   b2: 'true'
   i1: '1'
   f1: '1.1'
+  q1: "'"
+  q2: '"'
+  q3: '''"'
 
 labels:
   label: main
@@ -92,6 +98,12 @@ sub:
       value: '1'
     f1:
       value: '1.1'
+    q1:
+      value: "'"
+    q2:
+      value: '"'
+    q3:
+      value: '''"'
     directValue:
       type: value
       value: test
