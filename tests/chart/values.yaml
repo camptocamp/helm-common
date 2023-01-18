@@ -53,6 +53,10 @@ annotations:
   q1: "'"
   q2: '"'
   q3: '''"'
+  ml: |
+    line1
+    line2
+    line3
 
 podAnnotations:
   podName: main
@@ -64,6 +68,10 @@ podAnnotations:
   q1: "'"
   q2: '"'
   q3: '''"'
+  ml: |
+    line1
+    line2
+    line3
 
 labels:
   label: main
@@ -108,6 +116,11 @@ sub:
       value: '"'
     q3:
       value: '''"'
+    ml:
+      value: |
+        line1
+        line2
+        line3
     directValue:
       type: value
       value: test
