@@ -72,8 +72,8 @@ spec:
         b2: "true"
         f1: "1.1"
         i1: "1"
-        label: main
-        label2: main2
+        label: main3
+        label2: main4
       annotations:
         b1: "yes"
         b2: "true"
@@ -137,6 +137,9 @@ spec:
         app.kubernetes.io/name: chart-long-name-chart-long-name-chart-long-name-chart
         app.kubernetes.io/instance: relase-long-name-release-long-name-release
         app.kubernetes.io/component: sub
+        pod: sub
+      annotations:
+        pod: sub
     spec:
       imagePullSecrets:
         - name: test

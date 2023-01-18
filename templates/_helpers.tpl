@@ -180,7 +180,7 @@ annotations:
 
 {{- define "common.podMetadata" -}}
 labels: {{ include "common.selectorLabels" . | nindent 2 }}
-{{- with .service.labels }}
+{{- with .service.podLabels }}
   {{- toYaml . | nindent 2 }}
 {{- end }}
 {{- with .service.podAnnotations }}
