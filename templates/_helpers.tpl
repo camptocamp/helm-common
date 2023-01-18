@@ -3,9 +3,9 @@ Expand the name of the chart.
 */}}
 {{- define "common.servicenamePostfix" -}}
 {{- if .service.serviceName -}}
-{{ printf "-%s" .service.serviceName | trunc 10 | trimSuffix "-" }}
+{{ printf .service.serviceName }}
 {{- else if hasKey . "serviceName" -}}
-{{ printf "-%s" .serviceName | trunc 10 | trimSuffix "-"}}
+{{ printf .serviceName }}
 {{- end }}
 {{- end }}
 
@@ -13,7 +13,7 @@ Expand the name of the chart.
 Expand the name of the chart.
 */}}
 {{- define "common.name" -}}
-{{- default .root.Chart.Name .service.nameOverride | trunc 53 | trimSuffix "-" }}
+{{- default .root.Chart.Name .service.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -23,13 +23,13 @@ If release name contains chart name it will be used as a full name.
 */}}
 {{- define "common.fullname" -}}
 {{- if and ( hasKey .service "fullnameOverride") (.service.fullnameOverride) }}
-{{- .service.fullnameOverride | trunc 53 | trimSuffix "-" }}{{ include "common.servicenamePostfix" . }}
+{{- printf "%s-%s" ( .service.fullnameOverride | trunc 30 | trimSuffix "-" ) ( include "common.servicenamePostfix" . ) | trunc 63 | trimSuffix "-" }}
 {{- else }}
 {{- $name := default .root.Chart.Name .service.nameOverride }}
 {{- if contains $name .root.Release.Name }}
-{{- .root.Release.Name | trunc 63 | trimSuffix "-" }}{{ include "common.servicenamePostfix" . }}
+{{- printf "%s-%s" ( .root.Release.Name | trunc 40 | trimSuffix "-" ) ( include "common.servicenamePostfix" . )  | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- printf "%s-%s" .root.Release.Name $name | trunc 53 | trimSuffix "-" }}{{ include "common.servicenamePostfix" . }}
+{{- printf "%s-%s" ( ( printf "%s-%s" ( .root.Release.Name | trunc 20 | trimSuffix "-" ) $name ) | trunc 40 | trimSuffix "-" ) ( include "common.servicenamePostfix" . )  | trunc 63 | trimSuffix "-"  }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -48,7 +48,7 @@ Common labels
 {{- define "common.labels" -}}
 helm.sh/chart: {{ include "common.chart" .root }}
 {{- if .root.Chart.AppVersion }}
-app.kubernetes.io/version: {{ .root.Chart.AppVersion | quote }}
+app.kubernetes.io/version: {{ .root.Chart.AppVersion | squote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .root.Release.Service }}
 {{ include "common.selectorLabels" . }}
@@ -126,15 +126,15 @@ tolerations:
 
 {{- define "common.oneEnv" -}}
 {{- if eq ( default "value" .value.type ) "value" }}
-- name: {{ .name | quote }}
-  value: {{ .value.value | quote }}
+- name: {{ .name | squote }}
+  value: {{ .value.value | squote }}
 {{- else }}
 {{- if ne .value.type "none" }}
-- name: {{ .name | quote }}
+- name: {{ .name | squote }}
   valueFrom:
     {{ .value.type }}KeyRef:
-      name: {{ default .value.name ( get .configMapNameOverride .value.name ) | quote }}
-      key: {{ .value.key | quote }}
+      name: {{ default .value.name ( get .configMapNameOverride .value.name ) | squote }}
+      key: {{ .value.key | squote }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -169,8 +169,8 @@ resources: {{- toYaml .container.resources | nindent 2 }}
 
 {{- define "common.metadata" -}}
 labels: {{ include "common.labels" . | nindent 2 }}
-{{- range $key, $value := .service.labels }}
-  {{ $key }}: {{ $value | quote }}
+{{- with .service.labels }}
+  {{- toYaml . | nindent 2 }}
 {{- end }}
 {{- with .service.annotations }}
 annotations:
@@ -180,8 +180,8 @@ annotations:
 
 {{- define "common.podMetadata" -}}
 labels: {{ include "common.selectorLabels" . | nindent 2 }}
-{{- range $key, $value := .service.podLabels }}
-  {{ $key }}: {{ $value | quote }}
+{{- with .service.labels }}
+  {{- toYaml . | nindent 2 }}
 {{- end }}
 {{- with .service.podAnnotations }}
 annotations:

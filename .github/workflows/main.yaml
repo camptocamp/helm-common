@@ -50,8 +50,11 @@ jobs:
       - run: helm lint .
 
       - run: helm dependency update tests/chart
-      - run: helm template --namespace=default test tests/chart > tests/actual.yaml
+      - run: helm template --namespace=default relase-long-name-release-long-name-release tests/chart > tests/actual.yaml
       - run: diff -Naur --ignore-trailing-space tests/expected.yaml tests/actual.yaml
+        if: matrix.helm == 'latest'
+      - run: helm template --namespace=default relase-long-name-release-long-name-release --values=tests/service_account.yaml tests/chart > tests/actual_service_account.yaml
+      - run: diff -Naur --ignore-trailing-space tests/expected_service_account.yaml tests/actual_service_account.yaml
         if: matrix.helm == 'latest'
       - run: helm lint tests/chart
 
