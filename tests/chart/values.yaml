@@ -87,6 +87,10 @@ sub:
     repository: camptocamp/sub
     sha: 1234
     tag: latest
+  podAnnotations:
+    pod: sub
+  podLabels:
+    pod: sub
   env:
     direct:
       value: test
