@@ -127,7 +127,7 @@ tolerations:
 {{- define "common.oneEnv" -}}
 {{- if eq ( default "value" .value.type ) "value" }}
 - name: {{ .name | quote }}
-  value: {{ .value.value | toYaml }}
+  {{- dict "value" .value.value | toYaml | nindent 2 }}
 {{- else }}
 {{- if ne .value.type "none" }}
 - name: {{ .name | quote }}
