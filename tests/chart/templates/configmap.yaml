@@ -15,6 +15,3 @@ data:
   fullname_nameOverride_servicename: {{ include "common.fullname" ( dict "root" . "service" .Values.nameOverrideObject "serviceName" "argument-long-servcie-name-argument-long-servcie-name-argument" ) }}
   chart: {{ include "common.chart" . }}
   serviceAccountName: {{ include "common.serviceAccountName" ( dict "root" . "service" .Values ) }}
-
-
-

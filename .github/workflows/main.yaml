@@ -41,6 +41,16 @@ jobs:
       - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
       - run: python3 -m pip install --user --requirement=ci/requirements.txt
 
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: "pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}\npre-commit-"
+      - run: pre-commit run --all-files
+        env:
+          SKIP: helm-lock
+      - run: git diff
+        if: failure()
       - name: Checks
         run: c2cciutils-checks
 
@@ -53,7 +63,9 @@ jobs:
       - run: helm template --namespace=default relase-long-name-release-long-name-release tests/chart > tests/actual.yaml
       - run: diff -Naur --ignore-trailing-space tests/expected.yaml tests/actual.yaml
         if: matrix.helm == 'latest'
-      - run: helm template --namespace=default relase-long-name-release-long-name-release --values=tests/service_account.yaml tests/chart > tests/actual_service_account.yaml
+      - run:
+          helm template --namespace=default relase-long-name-release-long-name-release --values=tests/service_account.yaml
+          tests/chart > tests/actual_service_account.yaml
       - run: diff -Naur --ignore-trailing-space tests/expected_service_account.yaml tests/actual_service_account.yaml
         if: matrix.helm == 'latest'
       - run: helm lint tests/chart
