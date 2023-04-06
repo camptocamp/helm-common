@@ -1,0 +1,12 @@
+- id: helm-template-gen
+  name: generate Helm templates
+  language: python
+  entry: helm-template-gen
+  pass_filenames: false
+  files: |-
+    (?x)(
+      ^templates/.*$
+      |^values\.yaml$
+      |^Chart\.yaml$
+      |tests/[a-z]*\.yaml$
+    )

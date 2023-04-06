@@ -1,0 +1,19 @@
+strictness: veryhigh
+max-line-length: 110
+doc-warnings: True
+
+pydocstyle:
+  disable:
+    - D202 # no blank lines after function docstring
+
+bandit:
+  run: true
+
+mypy:
+  run: true
+
+pyroma:
+  run: true
+
+mccabe:
+  run: false

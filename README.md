@@ -1,4 +1,4 @@
-# Common functions
+## Common functions
 
 This offer all the function from a default Helm chart and in addition:
 `common.podConfig`, `common.containerConfig`
@@ -30,11 +30,11 @@ spec:
 
 In general it do the same thing than the default Helm chart, the following chapter describe the specific things.
 
-## Service name
+### Service name
 
 A `serviceName` configuration to be able to add a service name (to be able to have more than one pod in a chart)
 
-## Environment variables
+### Environment variables
 
 In the container config you should define an `env` and `configMapNameOverride` dictionaries with, for the env:
 
@@ -81,7 +81,7 @@ env:
 
 Currently we put at first the `order` <= `0` and at last the `order` > `0`, default is `0` (first).
 
-# Image name
+## Image name
 
 In the container config you should define the image like this:
 
@@ -95,7 +95,7 @@ image:
 
 The sha will be taken in priority of the tag
 
-# Pod affinity
+## Pod affinity
 
 In the `podConfig` you can have an `affinitySelector` to be able to configure a `podAntiAffinity`.
 
@@ -111,6 +111,36 @@ common.podConfig" ( dict
     "app.kubernetes.io/component" "<servicename>"
   )
 )
+```
+
+## Pre commit hooks
+
+[pre-commit](https://pre-commit.com/) hook used to generate and check your expected template.
+
+### Adding to your `.pre-commit-config.yaml`
+
+```yaml
+ci:
+  skip:
+    - heml-template-gen
+
+repos:
+  - repo: https://github.com/camptocamp/helm-common
+    rev: <version> # Use the ref you want to point at
+    hooks:
+      - id: helm-template-gen
+        files: |-
+          (?x)(
+            ^templates/.*$
+            |^values\.yaml$
+            |^Chart\.yaml$
+            |tests/values\.yaml$
+          )
+        args:
+          - --values=tests/values.yaml
+          - release-name
+          - .
+          - tests/expected.yaml
 ```
 
 ## Contributing
