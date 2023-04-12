@@ -41,34 +41,31 @@ jobs:
       - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
       - run: python3 -m pip install --user --requirement=ci/requirements.txt
 
-      - uses: actions/cache@v3
-        with:
-          path: ~/.cache/pre-commit
-          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
-          restore-keys: "pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}\npre-commit-"
-      - run: pre-commit run --all-files
-        env:
-          SKIP: helm-lock
-      - run: git diff && false
-        if: failure()
-      - name: Checks
-        run: c2cciutils-checks
-
       - uses: azure/setup-helm@v3
         with:
           version: ${{ matrix.helm }}
       - run: helm lint .
 
-      - run: helm dependency update tests/chart
-      - run: helm template --namespace=default relase-long-name-release-long-name-release tests/chart > tests/actual.yaml
-      - run: diff -Naur --ignore-trailing-space tests/expected.yaml tests/actual.yaml
+      - run: pip install --editable=.
+
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: "pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}\npre-commit-"
         if: matrix.helm == 'latest'
-      - run:
-          helm template --namespace=default relase-long-name-release-long-name-release --values=tests/service_account.yaml
-          tests/chart > tests/actual_service_account.yaml
-      - run: diff -Naur --ignore-trailing-space tests/expected_service_account.yaml tests/actual_service_account.yaml
+      - run: pre-commit run --all-files
+        env:
+          SKIP: helm-lock
         if: matrix.helm == 'latest'
-      - run: helm lint tests/chart
+      - run: git diff && false
+        if: failure()
+
+      - name: Checks
+        run: c2cciutils-checks
+
+      - run: poetry install
+      - run: poetry run prospector --output=pylint --die-on-tool-error
 
       - name: Setup k3s/k3d
         run: c2cciutils-k8s-install

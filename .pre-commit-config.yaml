@@ -5,8 +5,45 @@ ci:
     - helm-lock
     - ripsecrets
     - helmlint
+    - helm-template-gen
 
 repos:
+  - repo: local
+    hooks:
+      - id: helm-template-gen
+        name: generate Helm templates
+        language: python
+        entry: helm-template-gen
+        pass_filenames: false
+        files: |-
+          (?x)(
+            ^templates/.*$
+            |^values\.yaml$
+            |^Chart\.yaml$
+            |tests/chart/.*$
+          )
+        args:
+          - release-long-name-release-long-name-release
+          - tests/chart
+          - tests/expected.yaml
+      - id: helm-template-gen
+        name: generate Helm templates
+        language: python
+        entry: helm-template-gen
+        pass_filenames: false
+        files: |-
+          (?x)(
+            ^templates/.*$
+            |^values\.yaml$
+            |^Chart\.yaml$
+            |tests/chart/.*$
+            |tests/service_account\.yaml$
+          )
+        args:
+          - --values=tests/service_account.yaml
+          - release-long-name-release-long-name-release
+          - tests/chart
+          - expected_service_account.yaml
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
@@ -33,6 +70,7 @@ repos:
     rev: v2.2.4
     hooks:
       - id: codespell
+        exclude: ^(.*/)?poetry\.lock$
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.7.1
     hooks:
@@ -75,3 +113,22 @@ repos:
     hooks:
       - id: helmlint
         exclude: ^tests/chart/.+\.yaml$
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.0.0
+    hooks:
+      - id: autoflake
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.3.1
+    hooks:
+      - id: pyupgrade
+        args:
+          - --py38-plus
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+  - repo: https://github.com/psf/black
+    rev: 22.12.0
+    hooks:
+      - id: black
+        exclude: .*\.yaml

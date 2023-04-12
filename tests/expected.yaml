@@ -3,24 +3,24 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: relase-long-name-rel-chart-long-name-cha-env
+  name: release-long-name-re-chart-long-name-cha-env
   labels:
     helm.sh/chart: chart-long-name-chart-long-name-chart-long-name-chart
     app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: chart-long-name-chart-long-name-chart-long-name-chart
-    app.kubernetes.io/instance: relase-long-name-release-long-name-release
+    app.kubernetes.io/instance: release-long-name-release-long-name-release
     app.kubernetes.io/component: main
 data:
   servicenamePostfix: _
   servicenamePostfix_servicename: argument-long-servcie-name-argument-long-servcie-name-argument
   name: chart-long-name-chart-long-name-chart-long-name-chart
   name_nameOverride: value-long-name-override-value-long-name-override-value
-  fullname: relase-long-name-rel-chart-long-name-cha
+  fullname: release-long-name-re-chart-long-name-cha
   fullname_fullnameOverride: value-long-full-name-override
   fullname_fullnameOverride_servicename: value-long-full-name-override-argument-long-servcie-name-argume
-  fullname_nameOverride: relase-long-name-rel-value-long-name-ove
-  fullname_nameOverride_servicename: relase-long-name-rel-value-long-name-ove-argument-long-servcie
+  fullname_nameOverride: release-long-name-re-value-long-name-ove
+  fullname_nameOverride_servicename: release-long-name-re-value-long-name-ove-argument-long-servcie
   chart: chart-long-name-chart-long-name-chart-long-name-chart
   serviceAccountName: default
 ---
@@ -28,13 +28,13 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: relase-long-name-rel-chart-long-name-cha
+  name: release-long-name-re-chart-long-name-cha
   labels:
     helm.sh/chart: chart-long-name-chart-long-name-chart-long-name-chart
     app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: chart-long-name-chart-long-name-chart-long-name-chart
-    app.kubernetes.io/instance: relase-long-name-release-long-name-release
+    app.kubernetes.io/instance: release-long-name-release-long-name-release
     app.kubernetes.io/component: main
     b1: "yes"
     b2: "true"
@@ -64,13 +64,13 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: chart-long-name-chart-long-name-chart-long-name-chart
-      app.kubernetes.io/instance: relase-long-name-release-long-name-release
+      app.kubernetes.io/instance: release-long-name-release-long-name-release
       app.kubernetes.io/component: main
   template:
     metadata:
       labels:
         app.kubernetes.io/name: chart-long-name-chart-long-name-chart-long-name-chart
-        app.kubernetes.io/instance: relase-long-name-release-long-name-release
+        app.kubernetes.io/instance: release-long-name-release-long-name-release
         app.kubernetes.io/component: main
         b1: "yes"
         b2: "true"
@@ -121,13 +121,13 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: relase-long-name-rel-chart-long-name-cha-sub
+  name: release-long-name-re-chart-long-name-cha-sub
   labels:
     helm.sh/chart: chart-long-name-chart-long-name-chart-long-name-chart
     app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: chart-long-name-chart-long-name-chart-long-name-chart
-    app.kubernetes.io/instance: relase-long-name-release-long-name-release
+    app.kubernetes.io/instance: release-long-name-release-long-name-release
     app.kubernetes.io/component: sub
 spec:
   replicas: 1
@@ -137,13 +137,13 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: chart-long-name-chart-long-name-chart-long-name-chart
-      app.kubernetes.io/instance: relase-long-name-release-long-name-release
+      app.kubernetes.io/instance: release-long-name-release-long-name-release
       app.kubernetes.io/component: sub
   template:
     metadata:
       labels:
         app.kubernetes.io/name: chart-long-name-chart-long-name-chart-long-name-chart
-        app.kubernetes.io/instance: relase-long-name-release-long-name-release
+        app.kubernetes.io/instance: release-long-name-release-long-name-release
         app.kubernetes.io/component: sub
         pod: sub
       annotations:
@@ -167,7 +167,7 @@ spec:
               - key: app.kubernetes.io/instance
                 operator: In
                 values:
-                - relase-long-name-release-long-name-release
+                - release-long-name-release-long-name-release
               - key: app.kubernetes.io/name
                 operator: In
                 values:
