@@ -114,7 +114,7 @@ repos:
       - id: helmlint
         exclude: ^tests/chart/.+\.yaml$
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.0.0
+    rev: v2.1.1
     hooks:
       - id: autoflake
   - repo: https://github.com/asottile/pyupgrade
