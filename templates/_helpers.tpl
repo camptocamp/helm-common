@@ -124,20 +124,25 @@ tolerations:
 {{- end }}
 {{- end }}
 
-{{- define "common.oneEnv" -}}
+{{- define "common.oneEnv" }}
 {{- if eq ( default "value" .value.type ) "value" }}
 - name: {{ .name | quote }}
   {{- dict "value" .value.value | toYaml | nindent 2 }}
-{{- else }}
-{{- if ne .value.type "none" }}
+{{- else if or (eq ( default "value" .value.type ) "configMap") (eq ( default "value" .value.type ) "secret") }}
 - name: {{ .name | quote }}
   valueFrom:
     {{ .value.type }}KeyRef:
       name: {{ default .value.name ( get .configMapNameOverride .value.name ) | quote }}
       key: {{ .value.key | quote }}
+{{- else }}
+{{- if ne .value.type "none" }}
+- name: {{ .name | quote }}
+  valueFrom:
+  {{- toYaml .value.valueFrom | nindent 4 }}
 {{- end }}
 {{- end }}
 {{- end }}
+
 
 {{- define "common.containerConfig" -}}
 securityContext: {{- toYaml .root.Values.securityContext | nindent 2 }}

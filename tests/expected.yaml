@@ -181,6 +181,18 @@ spec:
           image: "camptocamp/sub@sha256:1234"
           imagePullPolicy: IfNotPresent
           env:
+            - name: "APP_KUBERNETES_IO_COMPONENT"
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['app.kubernetes.io/component']
+            - name: "APP_KUBERNETES_IO_INSTANCE"
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['app.kubernetes.io/instance']
+            - name: "APP_KUBERNETES_IO_NAME"
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['app.kubernetes.io/name']
             - name: "b1"
               value: "yes"
             - name: "b2"
