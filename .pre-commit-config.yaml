@@ -43,7 +43,7 @@ repos:
           - --values=tests/service_account.yaml
           - release-long-name-release-long-name-release
           - tests/chart
-          - expected_service_account.yaml
+          - tests/expected_service_account.yaml
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
