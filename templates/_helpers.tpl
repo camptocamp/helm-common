@@ -26,11 +26,7 @@ If release name contains chart name it will be used as a full name.
 {{- printf "%s-%s" ( .service.fullnameOverride | trunc 30 | trimSuffix "-" ) ( include "common.servicenamePostfix" . ) | trunc 63 | trimSuffix "-" }}
 {{- else }}
 {{- $name := default .root.Chart.Name .service.nameOverride }}
-{{- if contains $name .root.Release.Name }}
-{{- printf "%s-%s" ( .root.Release.Name | trunc 40 | trimSuffix "-" ) ( include "common.servicenamePostfix" . )  | trunc 63 | trimSuffix "-" }}
-{{- else }}
 {{- printf "%s-%s" ( ( printf "%s-%s" ( .root.Release.Name | trunc 20 | trimSuffix "-" ) $name ) | trunc 40 | trimSuffix "-" ) ( include "common.servicenamePostfix" . )  | trunc 63 | trimSuffix "-"  }}
-{{- end }}
 {{- end }}
 {{- end }}
 
