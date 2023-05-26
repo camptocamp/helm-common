@@ -100,6 +100,21 @@ sub:
   podLabels:
     pod: sub
   env:
+    APP_KUBERNETES_IO_INSTANCE:
+      type: 'downwardAPI'
+      valueFrom:
+        fieldRef:
+          fieldPath: "metadata.labels['app.kubernetes.io/instance']"
+    APP_KUBERNETES_IO_NAME:
+      type: 'downwardAPI'
+      valueFrom:
+        fieldRef:
+          fieldPath: "metadata.labels['app.kubernetes.io/name']"
+    APP_KUBERNETES_IO_COMPONENT:
+      type: 'downwardAPI'
+      valueFrom:
+        fieldRef:
+          fieldPath: "metadata.labels['app.kubernetes.io/component']"
     direct:
       value: test
     b1:
