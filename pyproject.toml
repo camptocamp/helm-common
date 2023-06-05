@@ -39,7 +39,7 @@ helm-template-gen = "helm_hooks.helm_template_gen:main"
 python = ">=3.8,<4.0"
 
 [tool.poetry.dev-dependencies]
-prospector = { version = "1.9.0", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
+prospector = { version = "1.10.2", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version"]
