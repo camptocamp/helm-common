@@ -26,7 +26,9 @@ If release name contains chart name it will be used as a full name.
 {{- printf "%s-%s" ( .service.fullnameOverride | trunc 30 | trimSuffix "-" ) ( include "common.servicenamePostfix" . ) | trunc 63 | trimSuffix "-" }}
 {{- else }}
 {{- $name := default .root.Chart.Name .service.nameOverride }}
-{{- printf "%s-%s" ( ( printf "%s-%s" ( .root.Release.Name | trunc 20 | trimSuffix "-" ) $name ) | trunc 40 | trimSuffix "-" ) ( include "common.servicenamePostfix" . )  | trunc 63 | trimSuffix "-"  }}
+{{- $releaseTrunc := default 20 ( int .service.releaseTrunc ) }}
+{{- $prefixTrunc := default 40 ( int .service.prefixTrunc ) }}
+{{- printf "%s-%s" ( ( printf "%s-%s" ( .root.Release.Name | trunc $releaseTrunc | trimSuffix "-" ) $name ) | trunc $prefixTrunc | trimSuffix "-" ) ( include "common.servicenamePostfix" . )  | trunc 63 | trimSuffix "-"  }}
 {{- end }}
 {{- end }}
 
@@ -128,7 +130,11 @@ tolerations:
 - name: {{ .name | quote }}
   valueFrom:
     {{ .value.type }}KeyRef:
+      {{ if and (hasKey .value "name" ) ( eq .value.name "self" ) -}}
+      name: {{ include "common.fullname" ( dict "root" .root "service" .root.Values ) }}
+      {{ else -}}
       name: {{ default .value.name ( get .configMapNameOverride .value.name ) | quote }}
+      {{ end -}}
       key: {{ .value.key | quote }}
 {{- else }}
 {{- if ne .value.type "none" }}
@@ -151,16 +157,17 @@ imagePullPolicy: {{ .root.Values.global.image.pullPolicy }}
 {{- if not ( empty .container.env ) }}
 env:
   {{- $configMapNameOverride := .root.Values.global.configMapNameOverride }}
+  {{- $root := .root }}
   {{- range $name, $value := .container.env }}
     {{- $order := int ( default 0 $value.order ) -}}
     {{- if ( le $order 0 ) }}
-      {{- include "common.oneEnv" ( dict "name" $name "value" $value "configMapNameOverride" $configMapNameOverride ) | indent 2 -}}
+      {{- include "common.oneEnv" ( dict "root" $root "name" $name "value" $value "configMapNameOverride" $configMapNameOverride ) | indent 2 -}}
     {{- end }}
   {{- end }}
   {{- range $name, $value := .container.env }}
     {{- $order := int ( default 0 $value.order ) -}}
     {{- if ( gt $order 0 ) }}
-      {{- include "common.oneEnv" ( dict "name" $name "value" $value "configMapNameOverride" $configMapNameOverride ) | indent 2 -}}
+      {{- include "common.oneEnv" ( dict "root" $root "name" $name "value" $value "configMapNameOverride" $configMapNameOverride ) | indent 2 -}}
     {{- end }}
   {{- end }}
 {{- end }}
