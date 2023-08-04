@@ -21,3 +21,7 @@
 *.tmproj
 .vscode/
 tests/
+ci/
+poetry.lock
+.github/
+.mypy_cache/
