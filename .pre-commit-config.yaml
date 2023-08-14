@@ -7,6 +7,7 @@ ci:
     - helmlint
     - helm-template-gen
 
+    - jsonschema-validator
 repos:
   - repo: local
     hooks:
@@ -132,3 +133,8 @@ repos:
     hooks:
       - id: black
         exclude: .*\.yaml
+  - repo: https://github.com/sbrunner/jsonschema-validator
+    rev: 0.1.0
+    hooks:
+      - id: jsonschema-validator
+        files: ^ci/config\.yaml$
