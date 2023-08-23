@@ -1,6 +1,8 @@
+inherits:
+  - duplicated
 strictness: veryhigh
 max-line-length: 110
-doc-warnings: True
+doc-warnings: true
 
 pydocstyle:
   disable:
