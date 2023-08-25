@@ -5,6 +5,24 @@
   "title": "HELM common",
   "additionalProperties": false,
   "definitions": {
+    "nameOverride": {
+      "type": "string",
+      "description": "[helm-common] Override the name"
+    },
+    "fullnameOverride": {
+      "type": "string",
+      "description": "[helm-common] Override the fullname"
+    },
+    "releaseTrunc": {
+      "type": "integer",
+      "description": "[helm-common] The release trunk length",
+      "default": 20
+    },
+    "prefixTrunc": {
+      "type": "integer",
+      "description": "[helm-common] The prefix trunk length (release anf chart name)",
+      "default": 40
+    },
     "serviceAccount": {
       "type": "object",
       "description": "[helm-common] Service account configuration",
@@ -18,6 +36,14 @@
           "description": "Name of the service account"
         }
       }
+    },
+    "podSecurityContext": {
+      "type": "object",
+      "description": "[helm-common] Pod security context"
+    },
+    "securityContext": {
+      "type": "object",
+      "description": "[helm-common] Container security context"
     },
     "globalImage": {
       "type": "object",
@@ -70,28 +96,14 @@
     },
     "serviceName": {
       "type": "string",
-      "description": "[helm-common] Pod: The name of the service (not Kubernetes service)"
-    },
-    "podSecurityContext": {
-      "type": "object",
-      "description": "[helm-common] Pod security context",
-      "properties": {
-        "fsGroup": {
-          "type": "integer",
-          "description": "FS group"
-        },
-        "runAsUser": {
-          "type": "integer",
-          "description": "Run as user"
-        }
-      }
+      "description": "[helm-common] The name of the service (not Kubernetes service), this will postfix the name"
     },
     "affinity": {
       "type": "object",
       "description": "[helm-common] Pod: The used affinity"
     },
     "tolerations": {
-      "type": "object",
+      "type": "array",
       "description": "[helm-common] Pod: Tolerations"
     },
     "nodeSelector": {
@@ -102,6 +114,21 @@
       "type": "object",
       "description": "Pod configuration",
       "properties": {
+        "nameOverride": {
+          "$ref": "#/definitions/nameOverride"
+        },
+        "fullnameOverride": {
+          "$ref": "#/definitions/fullnameOverride"
+        },
+        "serviceName": {
+          "$ref": "#/definitions/serviceName"
+        },
+        "releaseTrunc": {
+          "$ref": "#/definitions/releaseTrunc"
+        },
+        "prefixTrunc": {
+          "$ref": "#/definitions/prefixTrunc"
+        },
         "labels": {
           "$ref": "#/definitions/podLabels"
         },
@@ -114,17 +141,8 @@
         "podAnnotations": {
           "$ref": "#/definitions/podAnnotations"
         },
-        "serviceName": {
-          "$ref": "#/definitions/serviceName"
-        },
-        "podSecurityContext": {
-          "$ref": "#/definitions/podSecurityContext"
-        },
         "affinity": {
           "$ref": "#/definitions/affinity"
-        },
-        "tolerations": {
-          "$ref": "#/definitions/tolerations"
         },
         "nodeSelector": {
           "$ref": "#/definitions/nodeSelector"
@@ -144,7 +162,7 @@
           "description": "Image tag, used if the sha is not defined"
         },
         "sha": {
-          "type": "string",
+          "type": ["null", "string"],
           "description": "Image sha"
         }
       }
@@ -162,7 +180,8 @@
                 "description": "Disable the environment variable",
                 "enum": ["none"]
               }
-            }
+            },
+            "required": ["type"]
           },
           {
             "type": "object",
@@ -183,7 +202,8 @@
                 "type": "string",
                 "description": "Value of the environment variable"
               }
-            }
+            },
+            "required": ["value"]
           },
           {
             "type": "object",
@@ -207,7 +227,8 @@
                 "type": "string",
                 "description": "Key of the ConfigMap or Secret"
               }
-            }
+            },
+            "required": ["type", "name", "key"]
           },
           {
             "type": "object",
@@ -226,7 +247,8 @@
               "valueFrom": {
                 "type": "object"
               }
-            }
+            },
+            "required": ["type", "valueFrom"]
           }
         ]
       }
@@ -266,6 +288,18 @@
     },
     "serviceAccount": {
       "$ref": "#/definitions/serviceAccount"
+    },
+    "podSecurityContext": {
+      "$ref": "#/definitions/podSecurityContext"
+    },
+    "securityContext": {
+      "$ref": "#/definitions/securityContext"
+    },
+    "affinity": {
+      "$ref": "#/definitions/affinity"
+    },
+    "tolerations": {
+      "$ref": "#/definitions/tolerations"
     }
   }
 }
