@@ -113,6 +113,10 @@ common.podConfig" ( dict
 )
 ```
 
+## Schema documentation
+
+Documentation based on the schema defined in [values.md](./values.md).
+
 ## Pre commit hooks
 
 [pre-commit](https://pre-commit.com/) hook used to generate and check your expected template.
