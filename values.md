@@ -6,12 +6,22 @@
   - **`image`**: Refer to _[#/definitions/globalImage](#definitions/globalImage)_.
   - **`configMapNameOverride`**: Refer to _[#/definitions/configMapNameOverride](#definitions/configMapNameOverride)_.
 - **`serviceAccount`**: Refer to _[#/definitions/serviceAccount](#definitions/serviceAccount)_.
+- **`podSecurityContext`**: Refer to _[#/definitions/podSecurityContext](#definitions/podSecurityContext)_.
+- **`securityContext`**: Refer to _[#/definitions/securityContext](#definitions/securityContext)_.
+- **`affinity`**: Refer to _[#/definitions/affinity](#definitions/affinity)_.
+- **`tolerations`**: Refer to _[#/definitions/tolerations](#definitions/tolerations)_.
 
 ## Definitions
 
+- <a id="definitions/nameOverride"></a>**`nameOverride`** _(string)_: [helm-common] Override the name.
+- <a id="definitions/fullnameOverride"></a>**`fullnameOverride`** _(string)_: [helm-common] Override the fullname.
+- <a id="definitions/releaseTrunc"></a>**`releaseTrunc`** _(integer)_: [helm-common] The release trunk length. Default: `20`.
+- <a id="definitions/prefixTrunc"></a>**`prefixTrunc`** _(integer)_: [helm-common] The prefix trunk length (release anf chart name). Default: `40`.
 - <a id="definitions/serviceAccount"></a>**`serviceAccount`** _(object)_: [helm-common] Service account configuration.
   - **`create`** _(boolean)_: Create a service account.
   - **`name`** _(string)_: Name of the service account.
+- <a id="definitions/podSecurityContext"></a>**`podSecurityContext`** _(object)_: [helm-common] Pod security context.
+- <a id="definitions/securityContext"></a>**`securityContext`** _(object)_: [helm-common] Container security context.
 - <a id="definitions/globalImage"></a>**`globalImage`** _(object)_: [helm-common] global image configuration.
   - **`pullPolicy`** _(string)_: Image pull policy.
   - **`pullSecrets`** _(array)_: Image pull secrets.
@@ -25,45 +35,44 @@
   - **Additional Properties** _(string)_
 - <a id="definitions/podAnnotations"></a>**`podAnnotations`** _(object)_: [helm-common] Annotations used only in the Pod definition. Can contain additional properties.
   - **Additional Properties** _(string)_
-- <a id="definitions/serviceName"></a>**`serviceName`** _(string)_: [helm-common] Pod: The name of the service (not Kubernetes service).
-- <a id="definitions/podSecurityContext"></a>**`podSecurityContext`** _(object)_: [helm-common] Pod security context.
-  - **`fsGroup`** _(integer)_: FS group.
-  - **`runAsUser`** _(integer)_: Run as user.
+- <a id="definitions/serviceName"></a>**`serviceName`** _(string)_: [helm-common] The name of the service (not Kubernetes service), this will postfix the name.
 - <a id="definitions/affinity"></a>**`affinity`** _(object)_: [helm-common] Pod: The used affinity.
-- <a id="definitions/tolerations"></a>**`tolerations`** _(object)_: [helm-common] Pod: Tolerations.
+- <a id="definitions/tolerations"></a>**`tolerations`** _(array)_: [helm-common] Pod: Tolerations.
 - <a id="definitions/nodeSelector"></a>**`nodeSelector`** _(object)_: [helm-common] Pod: Node selector.
 - <a id="definitions/podConfig"></a>**`podConfig`** _(object)_: Pod configuration.
+  - **`nameOverride`**: Refer to _[#/definitions/nameOverride](#definitions/nameOverride)_.
+  - **`fullnameOverride`**: Refer to _[#/definitions/fullnameOverride](#definitions/fullnameOverride)_.
+  - **`serviceName`**: Refer to _[#/definitions/serviceName](#definitions/serviceName)_.
+  - **`releaseTrunc`**: Refer to _[#/definitions/releaseTrunc](#definitions/releaseTrunc)_.
+  - **`prefixTrunc`**: Refer to _[#/definitions/prefixTrunc](#definitions/prefixTrunc)_.
   - **`labels`**: Refer to _[#/definitions/podLabels](#definitions/podLabels)_.
   - **`annotations`**: Refer to _[#/definitions/podAnnotations](#definitions/podAnnotations)_.
   - **`podLabels`**: Refer to _[#/definitions/podLabels](#definitions/podLabels)_.
   - **`podAnnotations`**: Refer to _[#/definitions/podAnnotations](#definitions/podAnnotations)_.
-  - **`serviceName`**: Refer to _[#/definitions/serviceName](#definitions/serviceName)_.
-  - **`podSecurityContext`**: Refer to _[#/definitions/podSecurityContext](#definitions/podSecurityContext)_.
   - **`affinity`**: Refer to _[#/definitions/affinity](#definitions/affinity)_.
-  - **`tolerations`**: Refer to _[#/definitions/tolerations](#definitions/tolerations)_.
   - **`nodeSelector`**: Refer to _[#/definitions/nodeSelector](#definitions/nodeSelector)_.
 - <a id="definitions/image"></a>**`image`** _(object)_: [helm-common] Container: Image configuration.
   - **`repository`** _(string)_: Image repository.
   - **`tag`** _(string)_: Image tag, used if the sha is not defined.
-  - **`sha`** _(string)_: Image sha.
+  - **`sha`** _(['null', 'string'])_: Image sha.
 - <a id="definitions/env"></a>**`env`** _(object)_: [helm-common] Container: Environment variables. Can contain additional properties.
   - **Additional Properties**
     - **One of**
       - _object_
-        - **`type`** _(string)_: Disable the environment variable. Must be one of: `["none"]`.
+        - **`type`** _(string, required)_: Disable the environment variable. Must be one of: `["none"]`.
       - _object_
         - **`type`** _(string)_: Environment variable from a direct value. Must be one of: `["value"]`. Default: `"value"`.
         - **`order`** _(integer)_: Order of the environment variable. Must be one of: `[0, 1]`. Default: `0`.
-        - **`value`** _(string)_: Value of the environment variable.
+        - **`value`** _(string, required)_: Value of the environment variable.
       - _object_
-        - **`type`** _(string)_: Environment variable from a ConfigMap or a Secret. Must be one of: `["configMap", "secret"]`.
+        - **`type`** _(string, required)_: Environment variable from a ConfigMap or a Secret. Must be one of: `["configMap", "secret"]`.
         - **`order`** _(integer)_: Order of the environment variable. Must be one of: `[0, 1]`. Default: `0`.
-        - **`name`** _(string)_: Name of the ConfigMap or Secret, if 'self', same name as the service.
-        - **`key`** _(string)_: Key of the ConfigMap or Secret.
+        - **`name`** _(string, required)_: Name of the ConfigMap or Secret, if 'self', same name as the service.
+        - **`key`** _(string, required)_: Key of the ConfigMap or Secret.
       - _object_
-        - **`type`** _(string)_: Free valueFrom for an environment variable. Must be one of: `["valueFrom"]`.
+        - **`type`** _(string, required)_: Free valueFrom for an environment variable. Must be one of: `["valueFrom"]`.
         - **`order`** _(integer)_: Order of the environment variable. Must be one of: `[0, 1]`. Default: `0`.
-        - **`valueFrom`** _(object)_
+        - **`valueFrom`** _(object, required)_
 - <a id="definitions/resources"></a>**`resources`** _(object)_: [helm-common] Container: The container resources.
 - <a id="definitions/containerConfig"></a>**`containerConfig`** _(object)_: Container configuration.
   - **`image`**: Refer to _[#/definitions/image](#definitions/image)_.
