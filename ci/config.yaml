@@ -6,6 +6,7 @@ checks:
       - .*\.yaml
 
 publish:
+  pypi: false
   helm:
     folders:
       - .
