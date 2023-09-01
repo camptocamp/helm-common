@@ -52,7 +52,9 @@
   - **`affinity`**: Refer to _[#/definitions/affinity](#definitions/affinity)_.
   - **`nodeSelector`**: Refer to _[#/definitions/nodeSelector](#definitions/nodeSelector)_.
 - <a id="definitions/image"></a>**`image`** _(object)_: [helm-common] Container: Image configuration.
-  - **`repository`** _(string)_: Image repository.
+  - ## **Any of**
+    -
+  - **`repository`** _(string, required)_: Image repository.
   - **`tag`** _(string)_: Image tag, used if the sha is not defined.
   - **`sha`** _(['null', 'string'])_: Image sha.
 - <a id="definitions/env"></a>**`env`** _(object)_: [helm-common] Container: Environment variables. Can contain additional properties.

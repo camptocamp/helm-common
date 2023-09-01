@@ -165,7 +165,9 @@
           "type": ["null", "string"],
           "description": "Image sha"
         }
-      }
+      },
+      "required": ["repository"],
+      "anyOf": [{ "required": ["tag"] }, { "required": ["sha"] }]
     },
     "env": {
       "type": "object",
