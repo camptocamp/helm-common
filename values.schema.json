@@ -130,7 +130,7 @@
           "$ref": "#/definitions/prefixTrunc"
         },
         "labels": {
-          "$ref": "#/definitions/podLabels"
+          "$ref": "#/definitions/labels"
         },
         "annotations": {
           "$ref": "#/definitions/podAnnotations"

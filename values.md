@@ -45,7 +45,7 @@
   - **`serviceName`**: Refer to _[#/definitions/serviceName](#definitions/serviceName)_.
   - **`releaseTrunc`**: Refer to _[#/definitions/releaseTrunc](#definitions/releaseTrunc)_.
   - **`prefixTrunc`**: Refer to _[#/definitions/prefixTrunc](#definitions/prefixTrunc)_.
-  - **`labels`**: Refer to _[#/definitions/podLabels](#definitions/podLabels)_.
+  - **`labels`**: Refer to _[#/definitions/labels](#definitions/labels)_.
   - **`annotations`**: Refer to _[#/definitions/podAnnotations](#definitions/podAnnotations)_.
   - **`podLabels`**: Refer to _[#/definitions/podLabels](#definitions/podLabels)_.
   - **`podAnnotations`**: Refer to _[#/definitions/podAnnotations](#definitions/podAnnotations)_.
