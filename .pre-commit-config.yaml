@@ -55,6 +55,14 @@ repos:
           - --pre-commit
           - values.schema.json
           - values.md
+  - repo: https://github.com/mheap/json-schema-spell-checker
+    rev: master
+    hooks:
+      - id: json-schema-spell-checker
+        files: values.schema.json
+        args:
+          - --fields=description,title
+          - --spelling=.github/spell-ignore-words.txt
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:

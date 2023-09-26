@@ -1,0 +1,5 @@
+fullname
+Kubernetes
+ConfigMap
+valueFrom
+sha
