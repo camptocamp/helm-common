@@ -45,7 +45,7 @@ jobs:
       - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
       - run: python3 -m pip install --user --requirement=ci/requirements.txt
 
-      - uses: azure/setup-helm@v3
+      - uses: azure/setup-helm@v4
         with:
           version: ${{ matrix.helm }}
       - run: helm lint .
