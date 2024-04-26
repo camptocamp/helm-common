@@ -149,21 +149,6 @@ Parameters:
 
 - `keyName`: the name of the key to use in the list (default is 'name').
 
-### `common.oneEnv`
-
-Create one environment variable.
-
-Parameters:
-
-- `root`: the root object, should be `$`.
-- `name`: the name of the environment variable.
-- `value`: the definition of the [environment variable](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/env).
-- [`configMapNameOverride`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/configMapNameOverride): the name override of the ConfigMap to use.
-
-Used functions:
-
-- `common.fullname`
-
 ### `common.metadata`
 
 Create the metadata for the Kubernetes object.
