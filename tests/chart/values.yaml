@@ -166,10 +166,6 @@ sub:
       memory: 1Gi
       cpu: 1
 
-serviceAccount:
-  create: false
-  name: default
-
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 35

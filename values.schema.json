@@ -23,20 +23,6 @@
       "description": "[helm-common] The prefix trunk length (release and chart name)",
       "default": 40
     },
-    "serviceAccount": {
-      "type": "object",
-      "description": "[helm-common] Service account configuration",
-      "properties": {
-        "create": {
-          "type": "boolean",
-          "description": "Create a service account"
-        },
-        "name": {
-          "type": "string",
-          "description": "Name of the service account"
-        }
-      }
-    },
     "podSecurityContext": {
       "type": "object",
       "description": "[helm-common] Pod security context"
@@ -288,9 +274,6 @@
           "$ref": "#/definitions/configMapNameOverride"
         }
       }
-    },
-    "serviceAccount": {
-      "$ref": "#/definitions/serviceAccount"
     },
     "podSecurityContext": {
       "$ref": "#/definitions/podSecurityContext"

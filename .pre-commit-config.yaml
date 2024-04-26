@@ -42,10 +42,10 @@ repos:
             |tests/service_account\.yaml$
           )
         args:
-          - --values=tests/service_account.yaml
+          - --values=tests/long_service_name.yaml
           - release-long-name-release-long-name-release
           - tests/chart
-          - tests/expected_service_account.yaml
+          - tests/expected_long_service_name.yaml
   - repo: https://github.com/sbrunner/jsonschema2md
     rev: 1.2.0
     hooks:

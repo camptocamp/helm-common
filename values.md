@@ -5,7 +5,6 @@
 - **`global`** _(object)_: Global configuration.
   - **`image`**: Refer to _[#/definitions/globalImage](#definitions/globalImage)_.
   - **`configMapNameOverride`**: Refer to _[#/definitions/configMapNameOverride](#definitions/configMapNameOverride)_.
-- **`serviceAccount`**: Refer to _[#/definitions/serviceAccount](#definitions/serviceAccount)_.
 - **`podSecurityContext`**: Refer to _[#/definitions/podSecurityContext](#definitions/podSecurityContext)_.
 - **`securityContext`**: Refer to _[#/definitions/securityContext](#definitions/securityContext)_.
 - **`affinity`**: Refer to _[#/definitions/affinity](#definitions/affinity)_.
@@ -17,9 +16,6 @@
 - <a id="definitions/fullnameOverride"></a>**`fullnameOverride`** _(string)_: [helm-common] Override the fullname.
 - <a id="definitions/releaseTrunc"></a>**`releaseTrunc`** _(integer)_: [helm-common] The release trunk length. Default: `20`.
 - <a id="definitions/prefixTrunc"></a>**`prefixTrunc`** _(integer)_: [helm-common] The prefix trunk length (release and chart name). Default: `40`.
-- <a id="definitions/serviceAccount"></a>**`serviceAccount`** _(object)_: [helm-common] Service account configuration.
-  - **`create`** _(boolean)_: Create a service account.
-  - **`name`** _(string)_: Name of the service account.
 - <a id="definitions/podSecurityContext"></a>**`podSecurityContext`** _(object)_: [helm-common] Pod security context.
 - <a id="definitions/securityContext"></a>**`securityContext`** _(object)_: [helm-common] Container security context.
 - <a id="definitions/globalImage"></a>**`globalImage`** _(object)_: [helm-common] global image configuration.
