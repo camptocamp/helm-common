@@ -1,3 +1,3 @@
 tests/chart/templates/**/*.yaml
 tests/expected.yaml
-tests/expected_service_account.yaml
+tests/expected_long_service_name.yaml
