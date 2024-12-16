@@ -5,12 +5,20 @@ nameOverride: ''
 fullnameOverride: ''
 
 nameOverrideObject:
-  nameOverride: 'value-long-name-override-value-long-name-override-value'
+  nameOverride: name-override
   fullnameOverride: ''
+
+rootNameOverrideObject:
+  Chart:
+    Name: chart-name
+  Release:
+    Name: release-name
+  Values:
+    nameOverride: values-override
 
 fullnameOverrideObject:
   nameOverride: ''
-  fullnameOverride: 'value-long-full-name-override-value-long-full-name-override-value'
+  fullnameOverride: full-name-override
 
 annotations:
   name: main

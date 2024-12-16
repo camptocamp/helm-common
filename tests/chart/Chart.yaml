@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: '1.0'
 description: Test
-name: chart-long-name-chart-long-name-chart-long-name-chart
+name: chart-name
 version: 0.1.0
 dependencies:
   - name: common

@@ -1,1 +1,7 @@
 serviceName: value-long-service-name-value-long-service-name-value
+
+nameOverrideObject:
+  nameOverride: 'value-long-name-override-value-long-name-override-value'
+
+fullnameOverrideObject:
+  fullnameOverride: 'value-long-full-name-override-value-long-full-name-override-value'

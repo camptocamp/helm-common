@@ -44,8 +44,19 @@ Parameters:
 - `serviceName`: the service name default value (optional).
 
 Used values:
+[`serviceName`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/serviceName).
 
-- [`serviceName`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/serviceName) from the service object.
+### `common.nameNoTrunc`
+
+Expand the name of the chart.
+
+Parameters:
+
+- `root`: the root object, should be `$`.
+- `service`: the service object.
+
+Used values:
+[`nameOverride`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/nameOverride).
 
 ### `common.name`
 
@@ -57,14 +68,16 @@ Parameters:
 - `service`: the service object.
 
 Used values:
+[`nameOverride`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/nameOverride),
+[`nameTrunc`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/nameTrunc).
 
-- [`nameOverride`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/nameOverride) from the service object.
+Used functions:
 
-### `common.fullname`
+- `common.nameNoTrunc`
 
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
+### `common.releaseNameNoTrunc`
+
+Expand the name of the release.
 
 Parameters:
 
@@ -72,14 +85,52 @@ Parameters:
 - `service`: the service object.
 
 Used values:
+[`releaseNameOverride`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/releaseNameOverride).
 
-- [`fullnameOverride`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/fullnameOverride) from the service object.
-- [`nameOverride`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/nameOverride) from the service object.
-- [`releaseTrunc`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/releaseTrunc) from the service object.
-- [`prefixTrunc`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/prefixTrunc) from the service object.
+### `common.releaseName`
+
+Expand the name of the release.
+
+Parameters:
+
+- `root`: the root object, should be `$`.
+- `service`: the service object.
+
+Used values:
+[`releaseNameOverride`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/releaseNameOverride),
+[`releaseTrunc`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/releaseTrunc).
 
 Used functions:
 
+- `common.releaseNameNoTrunc`
+
+### `common.fullname`
+
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+
+The full name is the concatenation of a prefix, and a service name `<prefix>-<service-name>`.
+
+Where the prefix is the release name or the chart name (also just named name) of the chart `<release-name>-<chart-name>`.
+
+Parameters:
+
+- `root`: the root object, should be `$`.
+- `service`: the service object.
+
+Used values:
+[`releaseNameOverride`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/releaseNameOverride),
+[`nameOverride`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/nameOverride),
+[`fullnameOverride`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/fullnameOverride),
+[`releaseTrunc`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/releaseTrunc),
+[`nameTrunc`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/nameTrunc),
+[`prefixTrunc`](https://github.com/camptocamp/helm-common/blob/master/values.md#definitions/prefixTrunc).
+
+Used functions:
+
+- `common.releaseName`
+- `common.name`
 - `common.servicenamePostfix`
 
 ### `common.chart`

@@ -1,16 +1,18 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "common.fullname" ( dict "root" . "service" .Values ) }}-env
+  name: {{ include "common.fullname" ( dict "root" . "service" .Values "serviceName" "env" ) }}
   labels: {{ include "common.labels" ( dict "root" . "service" .Values ) | nindent 4 }}
 data:
   servicenamePostfix: _{{ include "common.servicenamePostfix" ( dict "service" .Values ) }}
-  servicenamePostfix_servicename: {{ include "common.servicenamePostfix" ( dict "service" .Values "serviceName" "argument-long-servcie-name-argument-long-servcie-name-argument" )}}
+  servicenamePostfix_servicename: {{ include "common.servicenamePostfix" ( dict "service" .Values "serviceName" "argument-service-name" )}}
   name: {{ include "common.name" ( dict "root" . "service" .Values ) }}
   name_nameOverride: {{ include "common.name" ( dict "root" . "service" .Values.nameOverrideObject ) }}
+  name_valueOverride: {{ include "common.name" ( dict "root" .Values.rootNameOverrideObject "service" .Values ) }}
+  name_valueOverride_nameOverride: {{ include "common.name" ( dict "root" .Values.rootNameOverrideObject "service" .Values.nameOverrideObject ) }}
   fullname: {{ include "common.fullname" ( dict "root" . "service" .Values ) }}
   fullname_fullnameOverride: {{ include "common.fullname" ( dict "root" . "service" .Values.fullnameOverrideObject ) }}
-  fullname_fullnameOverride_servicename: {{ include "common.fullname" ( dict "root" . "service" .Values.fullnameOverrideObject "serviceName" "argument-long-servcie-name-argument-long-servcie-name-argument" ) }}
+  fullname_fullnameOverride_servicename: {{ include "common.fullname" ( dict "root" . "service" .Values.fullnameOverrideObject "serviceName" "argument-service-name" ) }}
   fullname_nameOverride: {{ include "common.fullname" ( dict "root" . "service" .Values.nameOverrideObject ) }}
-  fullname_nameOverride_servicename: {{ include "common.fullname" ( dict "root" . "service" .Values.nameOverrideObject "serviceName" "argument-long-servcie-name-argument-long-servcie-name-argument" ) }}
+  fullname_nameOverride_servicename: {{ include "common.fullname" ( dict "root" . "service" .Values.nameOverrideObject "serviceName" "argument-service-name" ) }}
   chart: {{ include "common.chart" . }}
