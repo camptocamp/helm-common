@@ -22,7 +22,7 @@ Expand and trunc the name of the chart.
 */}}
 {{- define "common.name" -}}
 {{- $globalMerged := merge ( dict ) .service .root.Values ( .root.Values.globals | default ( dict ) ) }}
-{{- $nameTrunc := $globalMerged.nameTrunc | default 63 }}
+{{- $nameTrunc := ( int $globalMerged.nameTrunc ) | default 63 }}
 {{- include "common.nameNoTrunc" . | trunc $nameTrunc | trimSuffix "-" }}
 {{- end }}
 
@@ -39,7 +39,7 @@ Expand and trunk release name.
 */}}
 {{- define "common.releaseName" -}}
 {{- $globalMerged := merge ( dict ) .service .root.Values ( .root.Values.globals | default ( dict ) ) }}
-{{- $releaseTrunc := $globalMerged.releaseTrunc | default 20 }}
+{{- $releaseTrunc := ( int $globalMerged.releaseTrunc ) | default 20 }}
 {{- include "common.releaseNameNoTrunc" . | trunc $releaseTrunc | trimSuffix "-" }}
 {{- end }}
 
@@ -51,7 +51,7 @@ If release name contains chart name it will be used as a full name.
 {{- define "common.fullname" -}}
 {{- $valuesMerged := merge ( dict ) .service .root.Values }}
 {{- $globalMerged := merge ( dict ) .service .root.Values ( .root.Values.globals | default ( dict ) ) }}
-{{- $prefixTrunc := $globalMerged.prefixTrunc | default 40 }}
+{{- $prefixTrunc := ( int $globalMerged.prefixTrunc ) | default 40 }}
 {{- $fullnameOverride := $valuesMerged.fullnameOverride }}
 {{- if $fullnameOverride }}
 {{- printf "%s-%s" ( $fullnameOverride | trunc $prefixTrunc | trimSuffix "-" ) ( include "common.servicenamePostfix" . ) | trunc 63 | trimSuffix "-" }}
