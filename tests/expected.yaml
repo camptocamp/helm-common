@@ -1,24 +1,26 @@
 ---
-# Source: chart-long-name-chart-long-name-chart-long-name-chart/templates/configmap.yaml
+# Source: chart-name/templates/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: release-long-name-re-chart-long-name-cha-env
+  name: release-name-chart-name-env
   labels:
-    helm.sh/chart: chart-long-name-chart-long-name-chart-long-name-chart
+    helm.sh/chart: chart-name
     app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: chart-long-name-chart-long-name-chart-long-name-chart
-    app.kubernetes.io/instance: release-long-name-release-long-name-release
+    app.kubernetes.io/name: chart-name
+    app.kubernetes.io/instance: release-name
     app.kubernetes.io/component: main
 data:
   servicenamePostfix: _
-  servicenamePostfix_servicename: argument-long-servcie-name-argument-long-servcie-name-argument
-  name: chart-long-name-chart-long-name-chart-long-name-chart
-  name_nameOverride: value-long-name-override-value-long-name-override-value
-  fullname: release-long-name-re-chart-long-name-cha
-  fullname_fullnameOverride: value-long-full-name-override
-  fullname_fullnameOverride_servicename: value-long-full-name-override-argument-long-servcie-name-argume
-  fullname_nameOverride: release-long-name-re-value-long-name-ove
-  fullname_nameOverride_servicename: release-long-name-re-value-long-name-ove-argument-long-servcie
-  chart: chart-long-name-chart-long-name-chart-long-name-chart
+  servicenamePostfix_servicename: argument-service-name
+  name: chart-name
+  name_nameOverride: name-override
+  name_valueOverride: values-override
+  name_valueOverride_nameOverride: name-override
+  fullname: release-name-chart-name
+  fullname_fullnameOverride: full-name-override
+  fullname_fullnameOverride_servicename: full-name-override-argument-service-name
+  fullname_nameOverride: release-name-name-override
+  fullname_nameOverride_servicename: release-name-name-override-argument-service-name
+  chart: chart-name

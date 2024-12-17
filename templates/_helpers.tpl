@@ -12,8 +12,35 @@ Expand the name of the chart.
 {{/*
 Expand the name of the chart.
 */}}
+{{- define "common.nameNoTrunc" -}}
+{{- $valuesMerged := merge ( dict ) .service .root.Values }}
+{{- $valuesMerged.nameOverride | default .root.Chart.Name }}
+{{- end }}
+
+{{/*
+Expand and trunc the name of the chart.
+*/}}
 {{- define "common.name" -}}
-{{- default .root.Chart.Name .service.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- $globalMerged := merge ( dict ) .service .root.Values ( .root.Values.globals | default ( dict ) ) }}
+{{- $nameTrunc := $globalMerged.nameTrunc | default 63 }}
+{{- include "common.nameNoTrunc" . | trunc $nameTrunc | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Expand the release name.
+*/}}
+{{- define "common.releaseNameNoTrunc" -}}
+{{- $globalMerged := merge ( dict ) .service .root.Values ( .root.Values.globals | default ( dict ) ) }}
+{{- $globalMerged.releaseNameOverride | default .root.Release.Name }}
+{{- end }}
+
+{{/*
+Expand and trunk release name.
+*/}}
+{{- define "common.releaseName" -}}
+{{- $globalMerged := merge ( dict ) .service .root.Values ( .root.Values.globals | default ( dict ) ) }}
+{{- $releaseTrunc := $globalMerged.releaseTrunc | default 20 }}
+{{- include "common.releaseNameNoTrunc" . | trunc $releaseTrunc | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -22,13 +49,16 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "common.fullname" -}}
-{{- if and ( hasKey .service "fullnameOverride") (.service.fullnameOverride) }}
-{{- printf "%s-%s" ( .service.fullnameOverride | trunc 30 | trimSuffix "-" ) ( include "common.servicenamePostfix" . ) | trunc 63 | trimSuffix "-" }}
+{{- $valuesMerged := merge ( dict ) .service .root.Values }}
+{{- $globalMerged := merge ( dict ) .service .root.Values ( .root.Values.globals | default ( dict ) ) }}
+{{- $prefixTrunc := $globalMerged.prefixTrunc | default 40 }}
+{{- $fullnameOverride := $valuesMerged.fullnameOverride }}
+{{- if $fullnameOverride }}
+{{- printf "%s-%s" ( $fullnameOverride | trunc $prefixTrunc | trimSuffix "-" ) ( include "common.servicenamePostfix" . ) | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- $name := default .root.Chart.Name .service.nameOverride }}
-{{- $releaseTrunc := default 20 ( int .service.releaseTrunc ) }}
-{{- $prefixTrunc := default 40 ( int .service.prefixTrunc ) }}
-{{- printf "%s-%s" ( ( printf "%s-%s" ( .root.Release.Name | trunc $releaseTrunc | trimSuffix "-" ) $name ) | trunc $prefixTrunc | trimSuffix "-" ) ( include "common.servicenamePostfix" . )  | trunc 63 | trimSuffix "-"  }}
+{{- $name := include "common.name" . }}
+{{- $releaseName := include "common.releaseName" . }}
+{{- printf "%s-%s" ( printf "%s-%s" $releaseName $name | trunc $prefixTrunc | trimSuffix "-" ) ( include "common.servicenamePostfix" . )  | trunc 63 | trimSuffix "-"  }}
 {{- end }}
 {{- end }}
 
@@ -55,12 +85,12 @@ app.kubernetes.io/managed-by: {{ .root.Release.Service }}
 Selector labels
 */}}
 {{- define "common.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "common.name" . }}
-app.kubernetes.io/instance: {{ .root.Release.Name }}
+app.kubernetes.io/name: {{ include "common.nameNoTrunc" . }}
+app.kubernetes.io/instance: {{ include "common.releaseNameNoTrunc" . }}
 {{- if hasKey .service "serviceName" }}
-app.kubernetes.io/component: {{ printf "%s" .service.serviceName }}
+app.kubernetes.io/component: {{ .service.serviceName }}
 {{- else if hasKey . "serviceName" }}
-app.kubernetes.io/component: {{ printf "%s" .serviceName }}
+app.kubernetes.io/component: {{ .serviceName }}
 {{- else }}
 app.kubernetes.io/component: main
 {{- end }}

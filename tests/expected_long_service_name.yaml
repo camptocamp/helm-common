@@ -1,24 +1,26 @@
 ---
-# Source: chart-long-name-chart-long-name-chart-long-name-chart/templates/configmap.yaml
+# Source: chart-name/templates/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: release-long-name-re-chart-long-name-cha-value-long-service-nam-env
+  name: release-long-name-re-chart-name-value-long-service-name-value-l
   labels:
-    helm.sh/chart: chart-long-name-chart-long-name-chart-long-name-chart
+    helm.sh/chart: chart-name
     app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: chart-long-name-chart-long-name-chart-long-name-chart
+    app.kubernetes.io/name: chart-name
     app.kubernetes.io/instance: release-long-name-release-long-name-release
     app.kubernetes.io/component: value-long-service-name-value-long-service-name-value
 data:
   servicenamePostfix: _value-long-service-name-value-long-service-name-value
   servicenamePostfix_servicename: value-long-service-name-value-long-service-name-value
-  name: chart-long-name-chart-long-name-chart-long-name-chart
+  name: chart-name
   name_nameOverride: value-long-name-override-value-long-name-override-value
-  fullname: release-long-name-re-chart-long-name-cha-value-long-service-nam
-  fullname_fullnameOverride: value-long-full-name-override
-  fullname_fullnameOverride_servicename: value-long-full-name-override-argument-long-servcie-name-argume
+  name_valueOverride: values-override
+  name_valueOverride_nameOverride: value-long-name-override-value-long-name-override-value
+  fullname: release-long-name-re-chart-name-value-long-service-name-value-l
+  fullname_fullnameOverride: value-long-full-name-override-value-long
+  fullname_fullnameOverride_servicename: value-long-full-name-override-value-long-argument-service-name
   fullname_nameOverride: release-long-name-re-value-long-name-ove
-  fullname_nameOverride_servicename: release-long-name-re-value-long-name-ove-argument-long-servcie
-  chart: chart-long-name-chart-long-name-chart-long-name-chart
+  fullname_nameOverride_servicename: release-long-name-re-value-long-name-ove-argument-service-name
+  chart: chart-name

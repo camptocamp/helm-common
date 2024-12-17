@@ -14,7 +14,7 @@ repos:
             |tests/chart/.*$
           )
         args:
-          - release-long-name-release-long-name-release
+          - release-name
           - tests/chart
           - tests/expected.yaml
       - id: helm-template-gen
