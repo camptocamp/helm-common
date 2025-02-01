@@ -36,7 +36,7 @@ helm-template-gen = "helm_hooks.helm_template_gen:main"
 python = ">=3.9,<4.0"
 
 [tool.poetry.dev-dependencies]
-prospector = { version = "1.13.3", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
+prospector = { version = "1.14.0", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
 
 [tool.poetry.group.dev.dependencies]
 prospector-profile-duplicated = "1.10.4"
