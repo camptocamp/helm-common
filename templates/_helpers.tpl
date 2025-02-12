@@ -13,7 +13,7 @@ Expand the name of the chart.
 Expand the name of the chart.
 */}}
 {{- define "common.nameNoTrunc" -}}
-{{- $valuesMerged := merge ( dict ) .service .root.Values }}
+{{- $valuesMerged := merge ( deepCopy .service ) .root.Values }}
 {{- $valuesMerged.nameOverride | default .root.Chart.Name }}
 {{- end }}
 
@@ -21,7 +21,7 @@ Expand the name of the chart.
 Expand and trunc the name of the chart.
 */}}
 {{- define "common.name" -}}
-{{- $globalMerged := merge ( dict ) .service .root.Values ( .root.Values.globals | default ( dict ) ) }}
+{{- $globalMerged := merge ( deepCopy .service ) ( deepCopy .root.Values ) ( .root.Values.globals | default ( dict ) ) }}
 {{- $nameTrunc := ( int $globalMerged.nameTrunc ) | default 63 }}
 {{- include "common.nameNoTrunc" . | trunc $nameTrunc | trimSuffix "-" }}
 {{- end }}
@@ -30,7 +30,7 @@ Expand and trunc the name of the chart.
 Expand the release name.
 */}}
 {{- define "common.releaseNameNoTrunc" -}}
-{{- $globalMerged := merge ( dict ) .service .root.Values ( .root.Values.globals | default ( dict ) ) }}
+{{- $globalMerged := merge ( deepCopy .service ) ( deepCopy .root.Values ) ( .root.Values.globals | default ( dict ) ) }}
 {{- $globalMerged.releaseNameOverride | default .root.Release.Name }}
 {{- end }}
 
@@ -38,7 +38,7 @@ Expand the release name.
 Expand and trunk release name.
 */}}
 {{- define "common.releaseName" -}}
-{{- $globalMerged := merge ( dict ) .service .root.Values ( .root.Values.globals | default ( dict ) ) }}
+{{- $globalMerged := merge ( deepCopy .service ) ( deepCopy .root.Values ) ( .root.Values.globals | default ( dict ) ) }}
 {{- $releaseTrunc := ( int $globalMerged.releaseTrunc ) | default 20 }}
 {{- include "common.releaseNameNoTrunc" . | trunc $releaseTrunc | trimSuffix "-" }}
 {{- end }}
@@ -49,8 +49,8 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "common.fullname" -}}
-{{- $valuesMerged := merge ( dict ) .service .root.Values }}
-{{- $globalMerged := merge ( dict ) .service .root.Values ( .root.Values.globals | default ( dict ) ) }}
+{{- $valuesMerged := merge ( deepCopy .service ) .root.Values }}
+{{- $globalMerged := merge ( deepCopy .service ) ( deepCopy .root.Values ) ( .root.Values.globals | default ( dict ) ) }}
 {{- $prefixTrunc := ( int $globalMerged.prefixTrunc ) | default 40 }}
 {{- $fullnameOverride := $valuesMerged.fullnameOverride }}
 {{- if $fullnameOverride }}

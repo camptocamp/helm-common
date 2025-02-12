@@ -24,3 +24,20 @@ data:
   fullname_nameOverride: release-long-name-re-value-long-name-ove
   fullname_nameOverride_servicename: release-long-name-re-value-long-name-ove-argument-service-name
   chart: chart-name
+---
+# Source: chart-name/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: release-long-name-re-chart-name-cm2
+  labels:
+    helm.sh/chart: chart-name
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: chart-name
+    app.kubernetes.io/instance: release-long-name-release-long-name-release
+    app.kubernetes.io/component: main
+data:
+  ingress-global: global
+  ingress-root: root
+  ingress-service: service
