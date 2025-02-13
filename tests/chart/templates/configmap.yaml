@@ -16,3 +16,13 @@ data:
   fullname_nameOverride: {{ include "common.fullname" ( dict "root" . "service" .Values.nameOverrideObject ) }}
   fullname_nameOverride_servicename: {{ include "common.fullname" ( dict "root" . "service" .Values.nameOverrideObject "serviceName" "argument-service-name" ) }}
   chart: {{ include "common.chart" . }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.fullname" ( dict "root" . "service" .Values.cm2 "serviceName" "cm2" ) }}
+  labels: {{ include "common.labels" ( dict "root" . "service" .Values.cm2 ) | nindent 4 }}
+data:
+  ingress-global: {{ .Values.globals.ingress.origin }}
+  ingress-root: {{ .Values.ingress.origin }}
+  ingress-service: {{ .Values.cm2.ingress.origin }}
