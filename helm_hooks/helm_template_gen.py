@@ -5,6 +5,7 @@ import os.path
 import shlex
 import subprocess  # nosec
 import sys
+from pathlib import Path
 
 
 def main() -> None:
@@ -30,7 +31,7 @@ def main() -> None:
     parser.add_argument("--values", action="append", help="The values to be used", default=[])
     parser.add_argument("name", help="The HELM release name")
     parser.add_argument("chart", help="The chart directory")
-    parser.add_argument("output_file", help="The output file")
+    parser.add_argument("output_file", type=Path, help="The output file")
     args = parser.parse_args()
 
     helm_cmd = os.environ.get("HELM", "helm")
@@ -74,7 +75,7 @@ def main() -> None:
 
     result = helm_template_proc.stdout.split("\n")
     result = [line.rstrip() for line in result]
-    with open(args.output_file, "w", encoding="utf-8") as output_file:
+    with args.output_file.open("w", encoding="utf-8") as output_file:
         output_file.write("\n".join(result))
 
 
