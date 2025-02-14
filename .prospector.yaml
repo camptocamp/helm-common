@@ -1,21 +1,16 @@
 inherits:
   - duplicated
-strictness: veryhigh
-max-line-length: 110
-doc-warnings: true
-
+  - utils:base
+  - utils:fix
 pydocstyle:
   disable:
     - D202 # no blank lines after function docstring
 
-bandit:
-  run: true
-
-mypy:
-  run: true
-
 pyroma:
   run: true
-
-mccabe:
-  run: false
+mypy:
+  options:
+    python-version: '3.9'
+ruff:
+  options:
+    target-version: py39
