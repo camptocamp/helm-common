@@ -44,7 +44,7 @@ def main() -> None:
         args.name,
         args.chart,
     ]
-    helm_template_proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
+    helm_template_proc = subprocess.run(  # pylint: disable=subprocess-run-check # noqa: S603
         helm_template_cmd,
         encoding="utf-8",
         stdout=subprocess.PIPE,
@@ -53,7 +53,7 @@ def main() -> None:
     if helm_template_proc.returncode != 0:
         for template_directory in [args.chart, *args.additional_template_directory]:
             cmd = [helm_cmd, "dependency", "update"]
-            helm_dependency_update_proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
+            helm_dependency_update_proc = subprocess.run(  # pylint: disable=subprocess-run-check # noqa: S603
                 cmd,
                 cwd=template_directory,
                 check=False,
@@ -61,7 +61,7 @@ def main() -> None:
             if helm_dependency_update_proc.returncode != 0:
                 print(f"Error running {shlex.join(cmd)} in {template_directory}")
                 sys.exit(helm_dependency_update_proc.returncode)
-    helm_template_proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
+    helm_template_proc = subprocess.run(  # pylint: disable=subprocess-run-check # noqa: S603
         helm_template_cmd,
         encoding="utf-8",
         stdout=subprocess.PIPE,
@@ -70,7 +70,7 @@ def main() -> None:
     if helm_template_proc.returncode != 0:
         print(f"Error running {shlex.join(helm_template_cmd)}")
         helm_template_cmd.insert(2, "--debug")
-        subprocess.run(helm_template_cmd, check=False)  # pylint: disable=subprocess-run-check # nosec
+        subprocess.run(helm_template_cmd, check=False)  # pylint: disable=subprocess-run-check # noqa: S603
         sys.exit(helm_template_proc.returncode)
 
     result = helm_template_proc.stdout.split("\n")
