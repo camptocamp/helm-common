@@ -2,15 +2,15 @@ inherits:
   - duplicated
   - utils:base
   - utils:fix
-pydocstyle:
-  disable:
-    - D202 # no blank lines after function docstring
-
-pyroma:
-  run: true
 mypy:
   options:
     python-version: '3.9'
 ruff:
   options:
     target-version: py39
+pydocstyle:
+  disable:
+    - D202 # no blank lines after function docstring
+
+pyroma:
+  run: true
