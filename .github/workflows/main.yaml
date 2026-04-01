@@ -49,7 +49,7 @@ jobs:
           python-version: '3.13'
       - run: python3 -m pip install --requirement=ci/requirements.txt
 
-      - uses: azure/setup-helm@v4
+      - uses: azure/setup-helm@v5
         with:
           version: ${{ matrix.helm }}
       - run: helm lint .
