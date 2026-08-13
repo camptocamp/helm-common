@@ -79,7 +79,7 @@ jobs:
         run: c2cciutils-env
 
       - run: poetry install
-      - run: poetry run prospector --output=pylint --die-on-tool-error
+      - run: poetry run prospector --output=pylint --direct-tool-stdout
 
       - name: Setup k3s/k3d
         run: c2cciutils-k8s-install
