@@ -80,5 +80,5 @@ repository = "https://github.com/camptocamp/helm-common"
 helm-template-gen = "helm_hooks.helm_template_gen:main"
 
 [build-system]
-requires = ["poetry-core==2.4.0", "poetry-dynamic-versioning[plugin]==1.10.0"]
+requires = ["poetry-core==2.4.1", "poetry-dynamic-versioning[plugin]==1.10.0"]
 build-backend = "poetry.core.masonry.api"
