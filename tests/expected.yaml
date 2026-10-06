@@ -24,6 +24,7 @@ data:
   fullname_nameOverride: release-name-name-override
   fullname_nameOverride_servicename: release-name-name-override-argument-service-name
   chart: chart-name
+
 ---
 # Source: chart-name/templates/configmap.yaml
 apiVersion: v1

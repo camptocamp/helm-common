@@ -24,6 +24,7 @@ data:
   fullname_nameOverride: release-long-name-re-value-long-name-ove
   fullname_nameOverride_servicename: release-long-name-re-value-long-name-ove-argument-service-name
   chart: chart-name
+
 ---
 # Source: chart-name/templates/configmap.yaml
 apiVersion: v1
