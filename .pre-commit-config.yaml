@@ -81,6 +81,10 @@ repos:
       - id: copyright
       - id: workflows-require-timeout
       - id: helm-lock
+      - id: uv-lock
+        additional_dependencies:
+          - uv==0.13.4 # pypi
+        files: ^\.github/publish/pyproject\.toml$
       - id: poetry2-lock
       - id: canonicalize
       - id: prospector-to-ruff

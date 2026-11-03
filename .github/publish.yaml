@@ -3,5 +3,3 @@
 helm:
   packages:
     - folder: .
-dispatch:
-  - {}
